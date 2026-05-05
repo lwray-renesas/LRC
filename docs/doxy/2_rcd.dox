@@ -1,0 +1,253 @@
+/**
+\page RCD Residual Current Devices (RCDs)
+
+This page introduces the key concepts behind **Residual Current Devices (RCDs)** — sometimes referred to as
+**Residual Current Circuit Breakers (RCCBs)** or **Residual Current Devices with Over‑current protection (RCBOs)**.
+
+The purpose of this material is to establish a **conceptual and system‑level understanding** of RCD operation,
+measurement techniques, and regulatory requirements.  
+Armed with these concepts, the reader should be able to explore detailed standards and product implementations independently.
+
+<hr>
+
+\section RCDPrinciple Principle of Operation
+
+A Residual Current Device protects against **electric shock and fire hazards** by detecting **imbalance between conductors** supplying a load.
+
+Under normal operating conditions:
+\f[
+    I_\mathrm{L} = I_\mathrm{N}
+\f]
+
+Where:
+- \f$ I_\mathrm{L} \f$ is the line (phase) current
+- \f$ I_\mathrm{N} \f$ is the neutral current
+
+If some current leaks to earth (e.g. through a human body or faulty insulation):
+\f[
+    I_\Delta = | I_\mathrm{L} - I_\mathrm{N} |
+\f]
+
+When this **residual current** exceeds a predefined threshold (e.g. 30 mA),
+the RCD disconnects the supply within a specified time.
+
+<hr>
+
+\section DifferenceCurrentSensing Sensing Current Difference
+
+Residual current detection is fundamentally based on **measuring the vector sum of all live conductors** supplying a load.
+
+This is typically achieved using a **core‑balance current transformer (CBCT)**.
+
+\subsection CoreBalanceCT Core‑Balance Current Transformer
+
+A core‑balance CT consists of a magnetic core through which **all live conductors** (L, N, and optional phases)
+pass together.
+
+- Under normal operation, the magnetic flux cancels:
+\f[
+    \sum I = 0
+\f]
+
+- Under fault conditions, a net flux is produced:
+\f[
+    \sum I \neq 0
+\f]
+
+This net flux induces a current in the secondary winding proportional to the **residual current**.
+
+\subsection SignalConditioning Signal Conditioning
+
+The output of the residual current transformer must be conditioned before it can be processed
+by analog comparators or ADC subsystems.
+
+Typical signal conditioning stages include:
+
+- Burden resistor (current‑to‑voltage conversion)
+- Rectification or absolute‑value detection
+- Filtering to suppress high‑frequency noise
+- Gain scaling to match ADC/comparator input range
+
+\warning
+Filter time constants directly impact **trip time** and must be carefully selected to
+meet regulatory disconnection requirements.
+
+<hr>
+
+\section RogowskiRCD Rogowski-Based Residual Current Sensing
+
+In addition to traditional core‑balance current transformers, **Rogowski‑based sensing**
+is increasingly used in modern RCD designs, particularly where **wide bandwidth**,
+**DC immunity**, or **compact mechanical integration** is required.
+
+When paired with a suitable analog front end (AFE) such as the **RAA788000**
+and a **flux concentrator**, Rogowski sensing can be adapted effectively for
+residual current detection.
+
+\subsection RogowskiPrinciple Rogowski Principle Applied to RCDs
+
+A Rogowski coil is an **air‑cored, toroidal winding** that produces a voltage
+proportional to the **time derivative of the enclosed current**:
+
+\f[
+    V_\mathrm{coil}(t) = K \frac{dI(t)}{dt}
+\f]
+
+Where:
+- \f$ I(t) \f$ is the residual current waveform
+- \f$ K \f$ is the mutual inductance constant of the coil
+
+Unlike current transformers:
+- There is **no magnetic core saturation**
+- Sensitivity is **independent of absolute line current**
+- Response extends to **very low and very high frequencies**
+
+For RCD applications, the Rogowski coil is arranged such that **all live conductors**
+pass through the sensing aperture, or flux concentrator, measuring only the **residual current**.
+
+\remark
+Because a Rogowski coil responds to \f$ dI/dt \f$, signal integration is required
+to reconstruct the residual current magnitude.
+
+\subsection FluxConcentrator Flux Concentrator
+
+A key challenge in Rogowski‑based RCD sensing is achieving sufficient sensitivity
+at **low residual current levels** (e.g. 10–30 mA).
+
+A **flux concentrator** addresses this by:
+- Enhancing the magnetic field coupling into the Rogowski coil
+- Improving signal‑to‑noise ratio at low currents
+- Reducing dependency on precise conductor positioning
+
+\warning
+Flux concentrators must be carefully designed to avoid introducing
+**hysteresis**, **thermal drift**, or **directional sensitivity** that could
+impact trip consistency.
+
+\subsection RAA788000AFE Rogowski AFE Using RAA788000
+
+The **[RAA788000](https://www.renesas.com/en/products/raa788000)** is the first of its kind coil-on-chip rogowski IC with integrated op-amps.
+
+Signal chain:
+
+1. Rogowski coil output (dI/dt signal) - provided by RAA788000
+2. Low‑noise amplification & filtering - provided by RAA788000
+3. Post processing (MCU + ADC/Comparator)
+
+Key functional attributes include:
+- Low input‑referred noise to support low \f$ I_\Delta \f$
+- Stable integration over temperature and time
+- Predictable phase response for time‑based trip evaluation
+
+\remark
+Using an integrated AFE reduces component tolerance errors and simplifies
+compliance with trip‑time accuracy requirements.
+
+<hr>
+
+\section TripLogic Trip Logic and Decision Making
+
+Once a residual current signal is obtained, the decision logic determines **when to trip**.
+
+Two common implementation approaches are used:
+
+\subsection AnalogTrip Analog Trip
+
+- Comparator detects residual current above threshold
+- Directly drives trip solenoid or latch
+- Simple, fast, and robust
+
+\subsection DigitalTrip Digital Trip
+
+- Residual signal sampled by ADC
+- Digital filtering and integration applied
+- Software determines trip condition
+- Enables:
+  - Multiple trip curves
+  - Self‑test
+  - Event logging
+  - Adaptation to different RCD types
+
+\remark
+Digital RCD implementations must carefully manage **latency and failure modes** to ensure safety equivalence
+with analog designs.
+
+<hr>
+
+\section RCDTypes RCD Types
+
+Standards classify RCD behaviour according to the **residual current waveform** they can detect.
+
+| **Type** | **Detects** | **Typical Applications** |
+|---------|-------------|--------------------------|
+| **Type AC** | Sinusoidal AC only | Legacy residential systems |
+| **Type A** | AC + pulsating DC | Appliances with rectifiers |
+| **Type F** | AC + pulsating DC + mixed-frequency | Variable‑speed drives |
+| **Type B** | AC + DC + smooth DC | EV charging, PV inverters |
+
+<hr>
+
+\section Compliance Compliance
+
+RCDs are **safety‑critical devices** and are subject to stringent regulatory requirements.
+Compliance ensures correct operation under fault conditions, environmental stress,
+and electromagnetic disturbance.
+
+\warning
+This section provides reference information only.
+Formal compliance requires consultation with notified bodies and accredited test facilities.
+
+\subsection IECStandards Global Standards – IEC
+
+The **International Electrotechnical Commission (IEC)** defines the foundational standards for RCDs:
+
+| **Standard** | **Description** |
+|---------------|----------------|
+| **IEC 61008** | General requirements for RCDs without over‑current protection (RCCB - Residual Current Circuit Breaker) |
+| **IEC 61009** | General requirements for RCDs with over‑current protection (RCBO- Residual Current Breaker + Overcurrent) |
+| **IEC 60947‑2** | Industrial circuit breakers with residual current protection |
+| **IEC 60755** | General safety requirements & testing methods for residual current devices |
+| **IEC 62423** | Safety, performance & testing requirements for Type F and Type B RCD requirements |
+
+<hr>
+
+\subsection RegionalStandards Regional / Bloc Standards (EU & UK)
+
+In the EU and UK, IEC standards are adopted through **EN standards**
+and enforced via national regulations.
+
+Typical compliance hierarchy:
+
+| **Step** | **Entity** | **Purpose** |
+|-----------|-------------|-------------|
+| 1 | **Requirements** (Low Voltage Directive / UK Electrical Safety Regulations) | Legal safety requirements |
+| 2 | **Standards** (EN 61008, EN 61009, EN 62423) | Technical compliance definition |
+| 3 | **Type Testing** | Functional and safety verification |
+| 4 | **Certification** | Issuance by notified body |
+| 5 | **Declaration of Conformity** | Manufacturer declaration |
+
+<hr>
+
+\subsection TripCharacteristics Trip Characteristics
+
+RCD standards define:
+- Rated residual current \f$ I_{\Delta n} \f$
+- Maximum disconnection time as a function of \f$ I_\Delta \f$
+
+Typical values:
+
+| **IΔn** | **Maximum Trip Time** |
+|--------|------------------------|
+| 1 × IΔn | ≤ 300 ms |
+| 2 × IΔn | ≤ 150 ms |
+| 5 × IΔn | ≤ 40 ms |
+
+<hr>
+
+\subsection UsefulReferences Useful References
+
+- **IEC:** https://www.iec.ch
+- **UK Electrical Safety:** https://www.legislation.gov.uk  
+
+<hr>
+*/

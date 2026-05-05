@@ -1,0 +1,17 @@
+/**
+\mainpage Guidance Material
+
+\section Introduction Introduction
+Welcome to the LRC homepage, here we document a light-weight residual current device framework written in C, the aims of which are functionality, education and portability - in that order.
+Core functions include measurements current for single and multi-phase systems & event detection/reaction (e.g., over current).
+The codebases primary focus is in applications such as RCD's and other current monitoring systems and as such these take focus in any descriptive material and direction for the example projects.
+
+The quickest way to get started is to identify one of the examples in the repositories examples folder and start running it.<br>
+Each example comes equipped with a RUNME.md which contains instructions for running the example project - so head over there, choose an example & follow the respective instructions to run it.<br>
+Link to repository: https://github.com/lwray-renesas/LRC
+
+For an RCD deep dive, checkout the pages below:
+- \subpage Mathematics
+- \subpage RCD
+
+*/

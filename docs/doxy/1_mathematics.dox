@@ -1,0 +1,241 @@
+/**
+\page Mathematics Mathematics
+
+This page outlines the key mathematical concepts and signal‑processing foundations
+used in **residual current detection**.
+
+Unlike energy metering, which focuses on long‑term accurate measurement,
+RCD mathematics prioritises:
+- Fast detection of fault current
+- Robust operation under noise and distortion
+- Predictable time‑domain behaviour
+
+<hr>
+
+\section Context Context
+
+Residual current detection begins with the acquisition of **instantaneous samples**
+from an analog front‑end or ADC subsystem.
+
+We begin with a continuous‑time signal representing residual current:
+\f[
+    i_\Delta(t)
+\f]
+
+Which is sampled discretely by the ADC:
+\f[
+    I_{\Delta,\mathrm{adc}}[n]
+\f]
+
+Where:
+- \f$ n \f$ denotes the sample index
+- \f$ T_s \f$ is the sampling period
+
+This signal represents the **instantaneous residual current waveform**,
+from which further processing derives trip metrics such as RMS value,
+
+<hr>
+
+\section ResidualCurrent Residual Current
+
+Residual current is defined as the **vector sum of all live conductors** supplying a load.
+
+For a single‑phase system:
+\f[
+    i_\Delta(t) = i_L(t) - i_N(t)
+\f]
+
+For multi‑phase systems:
+\f[
+    i_\Delta(t) = \sum_{k=1}^{M} i_k(t)
+\f]
+
+Under normal operating conditions:
+\f[
+    i_\Delta(t) \approx 0
+\f]
+
+A non‑zero residual current indicates leakage to earth and may represent
+a hazardous condition.
+
+<hr>
+
+\section RMS RMS Evaluation
+
+In many RCD standards, trip thresholds are specified using the
+**RMS value of the residual current**.
+
+The RMS value of a discrete residual current signal is:
+
+\f[
+    I_{\Delta,\mathrm{RMS}} =
+    \sqrt{
+        \frac{1}{N}
+        \sum_{n=0}^{N-1}
+        \left(I_{\Delta,\mathrm{adc}}[n]\right)^2
+    }
+\f]
+
+Where:
+- \f$ N \f$ is the number of samples within the evaluation window
+
+\remark
+RCD evaluation windows are typically short and tightly bounded to
+guarantee compliance with maximum disconnection times.
+
+\subsection WindowedRMS Windowed RMS
+
+Windowed RMS evaluates the signal over a **sliding time window** that advances sample by sample.
+
+Given the above definition of RMS but using the windowed apprroach, we can divide the operation for computino of RMS into:
+
+The sum of squares:
+
+\f[
+S[n] =
+\sum_{k=n-N+1}^{n}
+\left(i_\Delta[k]\right)^2
+\f]
+
+Where:
+- \f$ N \f$ is the window length in samples.
+- \f$ n \f$ is the current sample (or time period).
+- \f$ k \f$ is the oldest sample in the window, to be removed.
+- \f$ S[n] \f$ is the sum of all sqaures in the window (\f$ k \f$ to \f$ n \f$) at time/sample n.
+
+And the RMS:
+
+\f[
+I_{\Delta,\mathrm{RMS}}[n] =
+\sqrt{\frac{S[n]}{N}}
+\f]
+
+Where:
+- \f$ I_{\Delta,\mathrm{RMS}}[n] \f$ is the RMS at time/sample n.=
+
+So rather than recomputing from scratch, we can instead keep the sum of squares recorded &
+the window of squared samples and simply subtract the oldest squared sample in the window
+and add the newest squared sample to recompute the sum of squares and thus the RMS at each sample n.
+
+\f[
+S[n] =
+S[n-1]
++ \left(i_\Delta[n]\right)^2
+- \left(i_\Delta[k]\right)^2
+\f]
+
+That is:
+- The square of the **newest sample** entering the window is added
+- The square of the **oldest sample** leaving the window is subtracted
+- This is done on the running sum of squares (\f$ S[n-1] \f$)
+
+This produces an exact sliding‑window RMS with **constant execution time**.
+
+Advantages
+- Fast detection of residual current faults
+- Well‑defined response time
+- Suitable for short regulatory trip windows
+- Easily correlated with time‑based trip curves
+
+Considerations
+- Requires careful window length selection
+- Smaller windows are noisier
+- Larger windows increase detection latency
+- Windows consume memory in an MCU
+
+\remark
+A consideration must be taken when selecting the window length, if the window length if not aligned closely to an
+integer number of line cycles - ripple in the computed RMS is observed.
+
+\section TimeBehaviour Time‑Domain Considerations
+
+Unlike metering systems, an RCD must respond correctly to:
+- Transient residual currents
+- Non‑sinusoidal waveforms
+- Pulsating and smooth DC components
+
+Therefore, **time‑domain behaviour** is just as important as magnitude.
+
+Typical parameters of interest include:
+- Time above threshold
+- Rate of rise of residual current
+- Energy content within a time window
+
+<hr>
+
+\section Filtering Filtering
+
+Filtering is used to improve **signal robustness** while preserving
+fault detection performance.
+
+\subsection HPF High‑Pass Filtering (DC Rejection)
+
+High‑pass filtering removes DC offsets introduced by:
+- Amplifier input bias
+- ADC offset
+- Integration drift (Rogowski sensors)
+
+A first‑order digital HPF can be written as:
+
+\f[
+    y[n] = \alpha \, y[n-1] + \alpha (x[n] - x[n-1])
+\f]
+
+With:
+\f[
+    \alpha = \frac{1}{1 + 2\pi f_c T_s}
+\f]
+
+Where:
+- \f$ f_c \f$ = high‑pass cut‑off frequency
+- \f$ T_s \f$ = sampling period
+
+\remark
+In RCD designs, \f$ f_c \f$ is chosen to remove offset without attenuating
+50/60 Hz components relevant to fault detection.
+
+<hr>
+
+\subsection LPF Low‑Pass Filtering (Noise Suppression)
+
+Low‑pass filtering attenuates high‑frequency noise that could:
+- Cause false trips
+- Interfere with comparators
+- Degrade numerical stability
+
+A first‑order digital LPF is commonly expressed as:
+
+\f[
+    y[n] = \alpha x[n] + (1 - \alpha) y[n-1]
+\f]
+
+Where:
+\f[
+    \alpha = \frac{2\pi f_c T_s}{1 + 2\pi f_c T_s}
+\f]
+
+\remark
+LPF bandwidth selection directly affects **trip latency** and must
+be validated against regulatory time limits.
+
+<hr>
+
+\section Integration integration
+\todo Populate Integration.
+
+<hr>
+
+\section TripDecision Trip Decision Metrics
+
+RCD trip decisions are typically based on one or more of the following metrics:
+- RMS residual current exceeding \f$ I_{\Delta n} \f$
+- Instantaneous magnitude exceeding threshold
+- Integrated current exceeding energy‑based limits
+- Time above threshold
+
+These metrics are evaluated against **regulatory trip curves**
+that define maximum allowable disconnection times.
+
+<hr>
+
+*/

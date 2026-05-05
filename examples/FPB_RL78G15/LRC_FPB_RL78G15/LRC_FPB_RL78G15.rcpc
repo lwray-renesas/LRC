@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MicomToolCommonProjectFile Version="1.00">
+  <CreatorType Name="e2studio" Version=""/>
+  <Placeholders>
+    <PlaceholderPrefix>${</PlaceholderPrefix>
+    <PlaceholderPostfix>}</PlaceholderPostfix>
+  </Placeholders>
+  <Project Name="LRC_FPB_RL78G15" Type="Application">
+    <Files>
+      <Category Name="src">
+        <Path>src\main.c</Path>
+        <Category Name="DF_sample">
+          <Category Name="common">
+            <Category Name="include">
+              <Path>src\DF_sample\common\include\sample_control_common.h</Path>
+              <Path>src\DF_sample\common\include\sample_control_data_flash.h</Path>
+              <Path>src\DF_sample\common\include\sample_defines.h</Path>
+              <Path>src\DF_sample\common\include\sample_types.h</Path>
+            </Category>
+            <Category Name="source">
+              <Category Name="common">
+                <Path>src\DF_sample\common\source\common\sample_control_common.c</Path>
+              </Category>
+              <Category Name="data_flash">
+                <Path>src\DF_sample\common\source\data_flash\sample_control_data_flash.c</Path>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="LRC">
+          <Category Name="port">
+            <Category Name="FPB_RL78G15">
+              <Path>..\..\..\port\FPB_RL78G15\LRC_Port.c</Path>
+              <Path>..\..\..\port\FPB_RL78G15\LRC_Port.h</Path>
+            </Category>
+          </Category>
+          <Category Name="src">
+            <Path>..\..\..\src\LRC_Core.c</Path>
+            <Path>..\..\..\src\LRC_Core.h</Path>
+            <Path>..\..\..\src\LRC_Types.h</Path>
+          </Category>
+        </Category>
+        <Category Name="Menu">
+          <Path>src\Menu\Menu.c</Path>
+          <Path>src\Menu\Menu.h</Path>
+        </Category>
+        <Category Name="smc_gen">
+          <Category Name="Config_ADC">
+            <Path>src\smc_gen\Config_ADC\Config_ADC.c</Path>
+            <Path>src\smc_gen\Config_ADC\Config_ADC.h</Path>
+            <Path>src\smc_gen\Config_ADC\Config_ADC_user.c</Path>
+          </Category>
+          <Category Name="Config_PORT">
+            <Path>src\smc_gen\Config_PORT\Config_PORT.c</Path>
+            <Path>src\smc_gen\Config_PORT\Config_PORT.h</Path>
+            <Path>src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
+          </Category>
+          <Category Name="Config_TAU0_0">
+            <Path>src\smc_gen\Config_TAU0_0\Config_TAU0_0.c</Path>
+            <Path>src\smc_gen\Config_TAU0_0\Config_TAU0_0.h</Path>
+            <Path>src\smc_gen\Config_TAU0_0\Config_TAU0_0_user.c</Path>
+          </Category>
+          <Category Name="Config_UART0">
+            <Path>src\smc_gen\Config_UART0\Config_UART0.c</Path>
+            <Path>src\smc_gen\Config_UART0\Config_UART0.h</Path>
+            <Path>src\smc_gen\Config_UART0\Config_UART0_user.c</Path>
+          </Category>
+          <Category Name="general">
+            <Path>src\smc_gen\general\r_cg_ad.h</Path>
+            <Path>src\smc_gen\general\r_cg_ad_common.c</Path>
+            <Path>src\smc_gen\general\r_cg_ad_common.h</Path>
+            <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
+            <Path>src\smc_gen\general\r_cg_port.h</Path>
+            <Path>src\smc_gen\general\r_cg_sau.h</Path>
+            <Path>src\smc_gen\general\r_cg_sau_common.c</Path>
+            <Path>src\smc_gen\general\r_cg_sau_common.h</Path>
+            <Path>src\smc_gen\general\r_cg_systeminit.c</Path>
+            <Path>src\smc_gen\general\r_cg_tau.h</Path>
+            <Path>src\smc_gen\general\r_cg_tau_common.c</Path>
+            <Path>src\smc_gen\general\r_cg_tau_common.h</Path>
+            <Path>src\smc_gen\general\r_cg_userdefine.h</Path>
+            <Path>src\smc_gen\general\r_smc_entry.h</Path>
+          </Category>
+          <Category Name="r_bsp">
+            <Path>src\smc_gen\r_bsp\platform.h</Path>
+            <Path>src\smc_gen\r_bsp\readme.txt</Path>
+            <Category Name="board">
+              <Category Name="generic_rl78_g15">
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\hdwinit.c</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\hdwinit.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp_config_reference.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp_config_reference_ccrl.inc</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp_config_reference_iccrl.inc</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp_config_reference_llvm.inc</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\r_bsp_init.c</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rl78_g15\stkinit.asm</Path>
+              </Category>
+            </Category>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_bsp\doc\en\r01an5522ej0192-rl78-bsp.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_bsp\doc\ja\r01an5522jj0192-rl78-bsp.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="mcu">
+              <Category Name="all">
+                <Path>src\smc_gen\r_bsp\mcu\all\cstart.asm</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common_ccrl.asm</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_rl78_compiler.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
+              </Category>
+              <Category Name="rl78_g15">
+                <Path>src\smc_gen\r_bsp\mcu\rl78_g15\mcu_clocks.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rl78_g15\mcu_clocks.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rl78_g15\mcu_info.h</Path>
+                <Category Name="register_access">
+                  <Category Name="ccrl">
+                    <Path>src\smc_gen\r_bsp\mcu\rl78_g15\register_access\ccrl\iodefine.h</Path>
+                  </Category>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_config">
+            <Path>src\smc_gen\r_config\r_bsp_config.h</Path>
+            <Path>src\smc_gen\r_config\r_bsp_config.inc</Path>
+            <Path>src\smc_gen\r_config\r_rfsp_rl78_common_config.h</Path>
+            <Path>src\smc_gen\r_config\r_rfsp_rl78_data_flash_config.h</Path>
+          </Category>
+          <Category Name="r_pincfg">
+            <Path>src\smc_gen\r_pincfg\Pin.c</Path>
+            <Path>src\smc_gen\r_pincfg\Pin.h</Path>
+          </Category>
+          <Category Name="r_rfsp_rl78_common">
+            <Path>src\smc_gen\r_rfsp_rl78_common\r_rfsp_rl78_common_if.h</Path>
+            <Path>src\smc_gen\r_rfsp_rl78_common\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_rfsp_rl78_common\doc\en\r20an0677ej0121-rl78.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_rfsp_rl78_common\doc\ja\r20an0677jj0121-rl78.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Category Name="include">
+                <Path>src\smc_gen\r_rfsp_rl78_common\src\include\r_rfsp_common_api.h</Path>
+                <Path>src\smc_gen\r_rfsp_rl78_common\src\include\r_rfsp_common_control_api.h</Path>
+                <Path>src\smc_gen\r_rfsp_rl78_common\src\include\r_rfsp_common_userown.h</Path>
+                <Category Name="rfsp">
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\include\rfsp\r_rfsp.h</Path>
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\include\rfsp\r_rfsp_compiler.h</Path>
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\include\rfsp\r_rfsp_device.h</Path>
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\include\rfsp\r_rfsp_types.h</Path>
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\include\rfsp\r_typedefs.h</Path>
+                </Category>
+              </Category>
+              <Category Name="source">
+                <Category Name="common">
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\source\common\r_rfsp_common_api.c</Path>
+                  <Path>src\smc_gen\r_rfsp_rl78_common\src\source\common\r_rfsp_common_control_api.c</Path>
+                </Category>
+              </Category>
+              <Category Name="userown">
+                <Path>src\smc_gen\r_rfsp_rl78_common\src\userown\r_rfsp_common_userown.c</Path>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_rfsp_rl78_dataflash">
+            <Path>src\smc_gen\r_rfsp_rl78_dataflash\r_rfsp_rl78_data_flash_if.h</Path>
+            <Path>src\smc_gen\r_rfsp_rl78_dataflash\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_rfsp_rl78_dataflash\doc\en\r20an0676ej0121-rl78.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_rfsp_rl78_dataflash\doc\ja\r20an0676jj0121-rl78.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Category Name="include">
+                <Path>src\smc_gen\r_rfsp_rl78_dataflash\src\include\r_rfsp_data_flash_api.h</Path>
+              </Category>
+              <Category Name="source">
+                <Category Name="dataflash">
+                  <Path>src\smc_gen\r_rfsp_rl78_dataflash\src\source\dataflash\r_rfsp_data_flash_api.c</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+      </Category>
+    </Files>
+    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrl.common.option.cpu.s2" Series="RL78">R5F12068xSP</Device>
+    <BuildOptions Name="CC-RL" Version="v1.16.00">
+      <BuildMode Active="True" Name="HardwareDebug">
+        <GeneralOptions/>
+        <CompileOptions>
+          <Option>-cpu=S2</Option>
+          <Option>-use_mda=not_use</Option>
+          <Option>-c</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-I "${ProjDirPath}\src\DF_sample\common\include"</Option>
+          <Option>-I "${ProjDirPath}\src\Menu"</Option>
+          <Option>-I "${ProjDirPath}\..\..\..\src"</Option>
+          <Option>-I "${ProjDirPath}\..\..\..\port\FPB_RL78G15"</Option>
+          <Option>-I "${ProjDirPath}\src"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\general"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15\register_access\ccrl"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_config"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\all"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\board\generic_rl78_g15"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_TAU0_0"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_PORT"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_ADC"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_UART0"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</Option>
+          <Option>-character_set=utf8</Option>
+          <Option>-g</Option>
+          <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
+          <Option>-Osize</Option>
+          <Option>-lang=c99</Option>
+        </CompileOptions>
+        <AssembleOptions>
+          <Option>-cpu=S2</Option>
+          <Option>-use_mda=not_use</Option>
+          <Option>-c</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\general"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15\register_access\ccrl"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_config"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\mcu\all"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_bsp\board\generic_rl78_g15"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_TAU0_0"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_PORT"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_ADC"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_UART0"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</Option>
+          <Option>-character_set=utf8</Option>
+          <Option>-g</Option>
+          <Option>-o "${ProjDirPath}\${ConfigName}"</Option>
+        </AssembleOptions>
+        <LinkOptions>
+          <Option>-device="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-list</Option>
+          <Option>-show=all</Option>
+          <Option>-nooptimize</Option>
+          <Option>-entry=_start</Option>
+          <Option>-auto_section_layout</Option>
+          <Option>-start=.text,.data,.sdata,.init_array,.RLIB,.SLIB,.textf,.constf,.const/0D8,.dataR,.bss/0FFB00,.sdataR,.sbss/0FFE20</Option>
+          <Option>-security_id=00000000000000000000</Option>
+          <Option>-debug_monitor</Option>
+          <Option>-user_opt_byte=EFF7F9</Option>
+          <Option>-ocdbg=85</Option>
+          <Option>-output="${ProjName}.abs"</Option>
+          <Option>-debug</Option>
+          <Option>-nocompress</Option>
+          <Option>-split_vect</Option>
+          <Option>-rom=.data=.dataR,.sdata=.sdataR</Option>
+          <Option>-nomessage</Option>
+          <Option>-nologo</Option>
+          <Option>-end</Option>
+          <Option>-output="${ProjName}.mot"</Option>
+          <Option>-form=stype</Option>
+          <Option>-byte_count=10</Option>
+          <Option>-nomessage</Option>
+          <Option>-nologo</Option>
+          <Option>-exit</Option>
+          <PreLinker>Auto</PreLinker>
+        </LinkOptions>
+        <LibraryGenerateOptions>
+          <Option>-cpu=S2</Option>
+          <Option>-use_mda=not_use</Option>
+          <Option>-nologo</Option>
+          <Option>-lang=c99</Option>
+          <Option>-output="${ProjName}.lib"</Option>
+          <GenerateMode>BuildOptionChanged</GenerateMode>
+        </LibraryGenerateOptions>
+        <LinkOrder>
+          <Path>HardwareDebug\stkinit.obj</Path>
+          <Path>HardwareDebug\cstart.obj</Path>
+          <Path>HardwareDebug\r_bsp_common_ccrl.obj</Path>
+          <Path>HardwareDebug\sample_control_common.obj</Path>
+          <Path>HardwareDebug\sample_control_data_flash.obj</Path>
+          <Path>HardwareDebug\LRC_Port.obj</Path>
+          <Path>HardwareDebug\LRC_Core.obj</Path>
+          <Path>HardwareDebug\Menu.obj</Path>
+          <Path>HardwareDebug\main.obj</Path>
+          <Path>HardwareDebug\Config_ADC.obj</Path>
+          <Path>HardwareDebug\Config_ADC_user.obj</Path>
+          <Path>HardwareDebug\Config_PORT.obj</Path>
+          <Path>HardwareDebug\Config_PORT_user.obj</Path>
+          <Path>HardwareDebug\Config_TAU0_0.obj</Path>
+          <Path>HardwareDebug\Config_TAU0_0_user.obj</Path>
+          <Path>HardwareDebug\Config_UART0.obj</Path>
+          <Path>HardwareDebug\Config_UART0_user.obj</Path>
+          <Path>HardwareDebug\r_cg_ad_common.obj</Path>
+          <Path>HardwareDebug\r_cg_sau_common.obj</Path>
+          <Path>HardwareDebug\r_cg_systeminit.obj</Path>
+          <Path>HardwareDebug\r_cg_tau_common.obj</Path>
+          <Path>HardwareDebug\hdwinit.obj</Path>
+          <Path>HardwareDebug\r_bsp_init.obj</Path>
+          <Path>HardwareDebug\r_bsp_common.obj</Path>
+          <Path>HardwareDebug\mcu_clocks.obj</Path>
+          <Path>HardwareDebug\Pin.obj</Path>
+          <Path>HardwareDebug\r_rfsp_common_api.obj</Path>
+          <Path>HardwareDebug\r_rfsp_common_control_api.obj</Path>
+          <Path>HardwareDebug\r_rfsp_common_userown.obj</Path>
+          <Path>HardwareDebug\r_rfsp_data_flash_api.obj</Path>
+          <Path>HardwareDebug\LRC_FPB_RL78G15.lib</Path>
+        </LinkOrder>
+        <CommonOptions>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\DF_sample\common\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\Menu"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\port\FPB_RL78G15"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15\register_access\ccrl"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\all"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp\board\generic_rl78_g15"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_TAU0_0"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_PORT"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_ADC"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_UART0"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\rl78_g15\register_access\ccrl"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp\mcu\all"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp\board\generic_rl78_g15"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_TAU0_0"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_PORT"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_ADC"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_UART0"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</IncludePathForAsm>
+        </CommonOptions>
+      </BuildMode>
+    </BuildOptions>
+  </Project>
+</MicomToolCommonProjectFile>
