@@ -30,14 +30,18 @@
 #include "sample_control_data_flash.h"
 #include <string.h>
 
-
 #define L_MCLK_FREQ_1MHz (1000000uL)
 #define L_MCLK_ROUNDUP_VALUE (999999uL)
 
 #define DATAFLASH_BASE_ADDRESS (0x9000u)
 
 static LRC_Config lrc_cfg = {
-    .trip =
+    .ac_trip =
+        {
+            .persistence = 1,
+            .threshold = LRC_FLOAT_TO_FXP(0.029f),
+        },
+    .dc_trip =
         {
             .persistence = 1,
             .threshold = LRC_FLOAT_TO_FXP(0.029f),
@@ -259,10 +263,14 @@ static void Rms_print(char *p_args)
   (void)p_args;
 
   Menu_print("\r\nRMS (fixed point): ");
-  Menu_print(itoa_hex_int32((int32_t)lrc_channel.rms));
+  Menu_print(itoa_hex_int32((int32_t)lrc_channel.ac_data.output));
   Menu_print(" [A]");
 
-  Menu_print("\r\nTo convert to float divide this number by: ");
+  Menu_print("\r\nDC (fixed point): ");
+  Menu_print(itoa_hex_int32((int32_t)lrc_channel.dc_data.output));
+  Menu_print(" [A]");
+
+  Menu_print("\r\nTo convert to float divide these numbers by: ");
   Menu_print(itoa_hex_int32((int32_t)(1 << FXP_FRAC_BITS)));
 }
 

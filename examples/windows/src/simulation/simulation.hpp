@@ -36,6 +36,9 @@ typedef struct SimulationResults
   std::shared_ptr<std::vector<int32_t>> p_rms_buf; /**< Pointer to vector of computed RMS for every iteration of LRC_CB_ADC*/
   std::shared_ptr<std::vector<double>>
       p_rms_buf_dbl; /**< Pointer to vector of computed RMS for every iteration of LRC_CB_ADC converted to doubles*/
+  std::shared_ptr<std::vector<int32_t>> p_dc_buf; /**< Pointer to vector of computed DC data for every iteration of LRC_CB_ADC*/
+  std::shared_ptr<std::vector<double>>
+      p_dc_buf_dbl; /**< Pointer to vector of computed DC data for every iteration of LRC_CB_ADC converted to doubles*/
   double f_sample;   /**< sampling frequency of input signal*/
 } SimulationResults;
 

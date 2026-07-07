@@ -81,6 +81,9 @@ void LRC_ChannelRegister(LRC_Channel *const p_channel);
  * @param[in] p_channel - pointer to the channel to work on.
  * @param[in] i_ref - the reference current being provided.
  * @return The computed channel coefficient.
+ * 
+ * @note This funciton uses RMS computation to create coefficient & therefore inherently the DC/MEAN of signal is subtracted.
+ * Using this with a pure AC sin wave is recommended to get cleanest coefficient.
  */
 fxp_t LRC_ChannelCoeffCompute(LRC_Channel *const p_channel, const float i_ref);
 

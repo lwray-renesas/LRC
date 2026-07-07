@@ -145,8 +145,8 @@ const tau_extended_cfg_t g_timer0_extend =
         };
 const timer_cfg_t g_timer0_cfg =
 { .mode = (timer_mode_t) 0,
-/* Actual Period: 0.0004000000 seconds. */
-/* Minimum Period ~ Maximum Period: 0.0000000625 ~ 0.00204800 seconds. */.period_counts = (uint32_t) 0x3200,
+/* Actual Period: 0.0002000000 seconds. */
+/* Minimum Period ~ Maximum Period: 0.0000000625 ~ 0.00204800 seconds. */.period_counts = (uint32_t) 0x1900,
   .duty_cycle_counts = 0, .source_div = (timer_source_div_t) BSP_CFG_TAU_CK00, .channel = 1, .p_callback = NULL,
   /** If NULL then do not add & */
 #if defined(NULL)
@@ -177,7 +177,7 @@ const adc_d_extended_cfg_t g_adc0_cfg_extend =
   .conversion_operation = ADC_D_CONVERSION_MODE_ONESHOT,
   .upper_lower_bound = ADC_D_BOUNDARY_IN_RANGE,
   .negative_vref = ADC_D_NEGATIVE_VREF_VSS,
-  .positive_vref = ADC_D_POSITIVE_VREF_IVREF,
+  .positive_vref = ADC_D_POSITIVE_VREF_VCC,
   .upper_bound_limit = 255,
   .lower_bound_limit = 0, };
 const adc_cfg_t g_adc0_cfg =

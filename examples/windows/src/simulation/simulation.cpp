@@ -16,10 +16,13 @@ typedef struct DriverParams
   std::shared_ptr<std::vector<int32_t>> p_current_samples; /**< Pointer to the current samples */
   std::shared_ptr<std::vector<int32_t>> p_rms_buf;         /**< Pointer to store the rms computations after each ADC callback */
   std::shared_ptr<std::vector<double>>
-      p_rms_buf_dbl;       /**< Pointer to store the rms computations after each ADC callback (converted to double)*/
-  double f_sample;         /**< sampling frequency*/
-  bool single_ended_adc;   /**< flag to indicate the ADC should behave as single ended */
-  size_t trip_idx;         /**< sample in which the simluation first tripped the RCD */
+      p_rms_buf_dbl;     /**< Pointer to store the rms computations after each ADC callback (converted to double)*/
+  std::shared_ptr<std::vector<int32_t>> p_dc_buf; /**< Pointer to store the dc data computations after each ADC callback */
+  std::shared_ptr<std::vector<double>>
+      p_dc_buf_dbl;     /**< Pointer to store the dc data computations after each ADC callback (converted to double)*/
+  double f_sample;       /**< sampling frequency*/
+  bool single_ended_adc; /**< flag to indicate the ADC should behave as single ended */
+  size_t trip_idx;       /**< sample in which the simluation first tripped the RCD */
 
   std::atomic<bool> stop_driver_thread;    /**< Pointer to the variable for stopping/cancelling the driver thread*/
   std::atomic<bool> driver_thread_running; /**< Pointer to the variable for indicating the driver thread is running*/
@@ -100,7 +103,7 @@ static void Driver_thread(std::shared_ptr<DriverParams> drvr_params)
   size_t sample = 0;
   double sleep_time_ms = 0.00;
 
-  const double sample_period = 1.00/drvr_params->f_sample;
+  const double sample_period = 1.00 / drvr_params->f_sample;
 
   drvr_params->driver_thread_running = true;
 
@@ -128,17 +131,15 @@ static void Driver_thread(std::shared_ptr<DriverParams> drvr_params)
         drvr_params->trip_idx = sample;
       }
 
-      drvr_params->p_rms_buf->push_back(drvr_params->channel.rms);
-      drvr_params->p_rms_buf_dbl->push_back(drvr_params->channel.rms / ((double)(1 << FXP_FRAC_BITS)));
+      drvr_params->p_rms_buf->push_back(drvr_params->channel.ac_data.output);
+      drvr_params->p_rms_buf_dbl->push_back(drvr_params->channel.ac_data.output / ((double)(1 << FXP_FRAC_BITS)));
+
+      drvr_params->p_dc_buf->push_back(drvr_params->channel.dc_data.output);
+      drvr_params->p_dc_buf_dbl->push_back(drvr_params->channel.dc_data.output / ((double)(1 << FXP_FRAC_BITS)));
 
       std::cout << std::flush << "\rRMS: " << std::fixed << std::setprecision(6)
-                << LRC_FXP_TO_FLOAT(drvr_params->channel.rms) << std::flush;
-
-      fxp_t tmp = LRC_ChannelCoeffCompute(&drvr_params->channel, 0.03f);
-      float tmp_f = LRC_FXP_TO_FLOAT(tmp);
-      std::cout << std::flush << "\tCoefficient: 0x" << std::setfill('0') << std::setw(8) << std::right << std::hex << tmp
+                << LRC_FXP_TO_FLOAT(drvr_params->channel.ac_data.output)
                 << std::flush;
-      std::cout << std::flush << "\tCoefficient: " << tmp_f << std::setprecision(6) << std::flush;
 
       ++sample;
     }
@@ -163,6 +164,8 @@ std::shared_ptr<SimulationResults> Simulation(const SimulationParams *sim_params
   drv_params->trip_idx = 0;
   drv_params->p_rms_buf = std::make_shared<std::vector<int32_t>>();
   drv_params->p_rms_buf_dbl = std::make_shared<std::vector<double>>();
+  drv_params->p_dc_buf = std::make_shared<std::vector<int32_t>>();
+  drv_params->p_dc_buf_dbl = std::make_shared<std::vector<double>>();
   drv_params->f_sample = sim_params->f_sample;
   drv_params->single_ended_adc = sim_params->single_ended_adc;
 
@@ -180,8 +183,10 @@ std::shared_ptr<SimulationResults> Simulation(const SimulationParams *sim_params
 
   // Config
   auto p_config = std::make_unique<LRC_Config>();
-  p_config->trip.threshold = (fxp_t)(0.029 * ((double)(1 << FXP_FRAC_BITS)));
-  p_config->trip.persistence = LRC_WINDOW_BUFFER_SIZE;
+  p_config->ac_trip.threshold = (fxp_t)(0.029 * ((double)(1 << FXP_FRAC_BITS)));
+  p_config->ac_trip.persistence = 1;
+  p_config->dc_trip.threshold = (fxp_t)(0.029 * ((double)(1 << FXP_FRAC_BITS)));
+  p_config->dc_trip.persistence = 1;
 
   LRC_Init(p_config.get());
 
@@ -230,6 +235,8 @@ std::shared_ptr<SimulationResults> Simulation(const SimulationParams *sim_params
   results->p_current_samples = sim_params->p_current_samples;
   results->p_rms_buf = drv_params->p_rms_buf;
   results->p_rms_buf_dbl = drv_params->p_rms_buf_dbl;
+  results->p_dc_buf = drv_params->p_dc_buf;
+  results->p_dc_buf_dbl = drv_params->p_dc_buf_dbl;
   results->trip_idx = drv_params->trip_idx;
   results->f_sample = drv_params->f_sample;
 

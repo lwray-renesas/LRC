@@ -141,13 +141,16 @@ void MainWindow::on_simulate_button_clicked()
               {
                 auto current_series = CreateLineSeriesFromVector(l_results->p_current_samples.get(), l_results->f_sample);
                 auto rms_series = CreateLineSeriesFromVector(l_results->p_rms_buf_dbl.get(), l_results->f_sample);
+                auto dc_series = CreateLineSeriesFromVector(l_results->p_dc_buf_dbl.get(), l_results->f_sample);
 
                 current_series->setName(QString("Isignal [A]"));
                 rms_series->setName(QString("Irms [A]"));
+                dc_series->setName(QString("Idc [A]"));
                 p_chart_view->chart()->setTitle(QString("LRC Performance"));
                 p_chart_view->chart()->removeAllSeries();
                 p_chart_view->chart()->addSeries(current_series);
                 p_chart_view->chart()->addSeries(rms_series);
+                p_chart_view->chart()->addSeries(dc_series);
                 p_chart_view->chart()->createDefaultAxes();
 
                 auto *axisX = qobject_cast<QValueAxis *>(p_chart_view->chart()->axisX());
@@ -219,6 +222,22 @@ void MainWindow::on_simulate_button_clicked()
                         QToolTip::hideText();
                       }
                     });
+
+                connect(dc_series, &QLineSeries::hovered, this,
+                        [](const QPointF &point, bool state)
+                        {
+                          if (state)
+                          {
+                            QToolTip::showText(
+                                QCursor::pos(),
+                                QString("Time: %1 [s]\nCurrent: %2 [A]").arg(point.x()).arg(point.y(), 0, 'f', 6));
+                          }
+                          else
+                          {
+                            QToolTip::hideText();
+                          }
+                        });
+
                 p_chart_view->chart()->createDefaultAxes();
 
                 sim_running = false;

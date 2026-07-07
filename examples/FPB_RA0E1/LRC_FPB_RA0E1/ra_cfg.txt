@@ -131,7 +131,7 @@ FSP Configuration
     
   Module "ADC (r_adc_d)"
     Parameter Checking: Default (BSP)
-    Internal Reference Voltage Support: Enabled
+    Internal Reference Voltage Support: Disabled
     Snooze Mode Support: Disabled
     Interrupt Support: Enabled
     
@@ -180,7 +180,7 @@ FSP Configuration
       Input: Channel Selection Mode: Select
       Input: A/D Input channel: Channel 4 (channels 4-7 in scan mode)
       Input: Negative Side Reference Voltage: VSS
-      Input: Positive Side Reference Voltage: Internal Reference Voltage
+      Input: Positive Side Reference Voltage: VCC
       Interrupts: Callback: adc_callback
       Interrupts: Scan End Interrupt Priority: Priority 0 (highest)
       Interrupts: Start trigger source: Timer channel 01 count or capture end interrupt signal (TAU0_TMI01)
@@ -194,7 +194,7 @@ FSP Configuration
       General: Function: Interval Timer
       General: Bit Timer Mode: 16-bit timer
       General: Operation Clock: CK00
-      General: Period: 400
+      General: Period: 200
       General: Period Unit: Microseconds
       General: Period (Higher 8-bit timer): 0x100
       General: Period Unit (Higher 8-bit timer): Raw Counts
