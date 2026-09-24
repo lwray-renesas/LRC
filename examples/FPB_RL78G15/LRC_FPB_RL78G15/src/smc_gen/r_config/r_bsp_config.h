@@ -26,6 +26,7 @@
 *                               Reviewed the initial values of macro definitions.
 *                               Reviewed the comments of macro definitions.
 *                               Added macro definitions for waiting process.
+*         : 19.12.2025 2.00     Added notes to prevent omissions in macro definitions setting when using an RTOS.
 ***********************************************************************************************************************/
 
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
@@ -183,7 +184,7 @@
      SO00/TxD0       - Setting prohibited
 */
 #define BSP_CFG_PIOR11 (0) /* Generated value. Do not edit this manually */
-#define BSP_CFG_PIOR10 (1) /* Generated value. Do not edit this manually */
+#define BSP_CFG_PIOR10 (0) /* Generated value. Do not edit this manually */
 
 /* Peripheral I/O redirection register(PIOR1-PIOR13/PIOR12)
     8,10-pin
@@ -403,7 +404,7 @@ Set PIOR13 to 0.
    v1.3.0  : 1030
    v1.6.0  : 1060
 */
-#define BSP_CFG_CONFIGURATOR_VERSION (1160) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION (1180) /* Generated value. Do not edit this manually */
 
 /* API function disable(R_BSP_StartClock, R_BSP_StopClock)
  0 : Enable API functions
@@ -535,12 +536,14 @@ Set PIOR13 to 0.
 #define BSP_CFG_FIH_START_ON_STARTUP (1) /* Generated value. Do not edit this manually */
 
 /* This macro lets other modules no if a RTOS is being used.
-   0 = RTOS is not used.
-   1 = FreeRTOS is used.(This is not available.)
-   2 = embOS is used.(This is not available.)
-   3 = MicroC_OS is used.(This is not available.)
-   4 = Renesas ITRON is used.
- */
+ 0 = RTOS is not used.
+ 1 = FreeRTOS is used.
+ 2 = embOS is used.(This is not available.)
+ 3 = MicroC_OS is used.(This is not available.)
+ 4 = Renesas ITRON is used.
+ (Note)
+   Set the same value to BSP_CFG_ASM_RTOS_USED in r_bsp_config.inc.
+*/
 #define BSP_CFG_RTOS_USED (0)
 
 /* Loop count using the main system clock. */

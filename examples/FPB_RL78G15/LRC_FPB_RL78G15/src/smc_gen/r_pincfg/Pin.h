@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -52,8 +52,8 @@ Macro definitions
  */
 
 /* PIOR pin function assignments */
-#define SMC_PIN_TxD0        0,4
-#define SMC_PIN_RxD0        0,5
+#define SMC_PIN_TxD0        0,0
+#define SMC_PIN_RxD0        0,1
 
 /* Pin write helper */
 #define PIN_WRITE_HELPER(x,y)                    ((P##x##_bit.no##y))

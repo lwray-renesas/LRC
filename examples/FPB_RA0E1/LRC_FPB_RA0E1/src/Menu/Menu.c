@@ -153,30 +153,30 @@ static void Buffer_flush(Ring_buffer *p_buf)
 }
 
 /**
- * @brief prints character to uart terminal
- * @param c - character to print
+ * @brief prints buffer to terminal
+ * @param p_buf - pointer to buffer to transmit
+ * @param len - length of transmission
  */
-static void Uart_putc(char const c)
+static void Uart_write(char * p_buf, uint16_t len)
 {
-  fsp_err_t err = FSP_SUCCESS;
-  while (false == uart_write_complete)
-  {
-    __NOP();
-  }
+    fsp_err_t err = FSP_SUCCESS;
+    while (false == uart_write_complete)
+    {
+      __NOP();
+    }
 
-  uart_write_complete = false;
+    uart_write_complete = false;
 
-  err = R_UARTA_Write(&g_uart0_ctrl, (uint8_t *)&c, 1);
+    err = R_UARTA_Write(&g_uart0_ctrl, (uint8_t *)p_buf, (uint32_t)len);
+    if (FSP_SUCCESS != err)
+    {
+      __BKPT(1);
+    }
 
-  if (FSP_SUCCESS != err)
-  {
-    __BKPT(1);
-  }
-
-  while (false == uart_write_complete)
-  {
-    __NOP();
-  }
+    while (false == uart_write_complete)
+    {
+      __NOP();
+    }
 }
 
 void Menu_init(Menu *p_menu)
@@ -234,7 +234,6 @@ void Menu_printf(char const *p_format, ...)
       0,
   };
   int len = 0;
-  int i = 0;
   va_list arg = {NULL};
   va_start(arg, p_format);
   len = vsprintf((char *)tx_buf, (const char *)p_format, arg);
@@ -244,10 +243,7 @@ void Menu_printf(char const *p_format, ...)
     __BKPT(1);
   }
 
-  while (i < len)
-  {
-    Uart_putc(tx_buf[i++]);
-  }
+  Uart_write(tx_buf, (uint16_t)len);
 }
 
 void Menu_handler(void)
@@ -316,7 +312,7 @@ void Menu_handler(void)
         }
         else
         {
-          Uart_putc(line_buffer[i]);
+          Uart_write(&line_buffer[i], 1);
         }
       }
 
@@ -385,18 +381,22 @@ void Menu_handler(void)
   }
 }
 
-void g_uart0_callback(uart_callback_args_t *p_args)
+void Menu_cancel_transmit(void)
 {
-  if (UART_EVENT_TX_COMPLETE == p_args->event)
-  {
+    R_UARTA_Close(&g_uart0_ctrl);
+    R_UARTA_Open(&g_uart0_ctrl, &g_uart0_cfg);
     uart_write_complete = true;
-  }
-  else if (UART_EVENT_RX_CHAR == p_args->event)
+}
+
+void Menu_uart_callback(uart_callback_args_t *p_args)
+{
+  if (UART_EVENT_RX_CHAR == p_args->event)
   {
     Buffer_putc(&uart_rx_buf, (char)p_args->data);
   }
   else
   {
     /* Do nothing*/
+      uart_write_complete = true;
   }
 }

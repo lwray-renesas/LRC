@@ -40,15 +40,21 @@
             <Path>..\..\..\src\LRC_Types.h</Path>
           </Category>
         </Category>
-        <Category Name="Menu">
-          <Path>src\Menu\Menu.c</Path>
-          <Path>src\Menu\Menu.h</Path>
+        <Category Name="csvbin">
+          <Path>src\csvbin\csvbin.c</Path>
+          <Path>src\csvbin\csvbin.h</Path>
+          <Path>src\csvbin\csvbin_port.c</Path>
         </Category>
         <Category Name="smc_gen">
           <Category Name="Config_ADC">
             <Path>src\smc_gen\Config_ADC\Config_ADC.c</Path>
             <Path>src\smc_gen\Config_ADC\Config_ADC.h</Path>
             <Path>src\smc_gen\Config_ADC\Config_ADC_user.c</Path>
+          </Category>
+          <Category Name="Config_INTC">
+            <Path>src\smc_gen\Config_INTC\Config_INTC.c</Path>
+            <Path>src\smc_gen\Config_INTC\Config_INTC.h</Path>
+            <Path>src\smc_gen\Config_INTC\Config_INTC_user.c</Path>
           </Category>
           <Category Name="Config_PORT">
             <Path>src\smc_gen\Config_PORT\Config_PORT.c</Path>
@@ -69,6 +75,7 @@
             <Path>src\smc_gen\general\r_cg_ad.h</Path>
             <Path>src\smc_gen\general\r_cg_ad_common.c</Path>
             <Path>src\smc_gen\general\r_cg_ad_common.h</Path>
+            <Path>src\smc_gen\general\r_cg_intc.h</Path>
             <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
             <Path>src\smc_gen\general\r_cg_port.h</Path>
             <Path>src\smc_gen\general\r_cg_sau.h</Path>
@@ -99,10 +106,10 @@
             </Category>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_bsp\doc\en\r01an5522ej0192-rl78-bsp.pdf</Path>
+                <Path>src\smc_gen\r_bsp\doc\en\r01an5522ej0200-rl78-bsp.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_bsp\doc\ja\r01an5522jj0192-rl78-bsp.pdf</Path>
+                <Path>src\smc_gen\r_bsp\doc\ja\r01an5522jj0200-rl78-bsp.pdf</Path>
               </Category>
             </Category>
             <Category Name="mcu">
@@ -206,10 +213,10 @@
           <Option>-cpu=S2</Option>
           <Option>-use_mda=not_use</Option>
           <Option>-c</Option>
-          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-I "${ProjDirPath}\src\csvbin"</Option>
           <Option>-I "${ProjDirPath}\src\DF_sample\common\include"</Option>
-          <Option>-I "${ProjDirPath}\src\Menu"</Option>
           <Option>-I "${ProjDirPath}\..\..\..\src"</Option>
           <Option>-I "${ProjDirPath}\..\..\..\port\FPB_RL78G15"</Option>
           <Option>-I "${ProjDirPath}\src"</Option>
@@ -230,17 +237,18 @@
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_INTC"</Option>
           <Option>-character_set=utf8</Option>
           <Option>-g</Option>
           <Option>-o ${workspace_loc}\${ProjName}/${ConfigName}</Option>
-          <Option>-Osize</Option>
+          <Option>-Olite</Option>
           <Option>-lang=c99</Option>
         </CompileOptions>
         <AssembleOptions>
           <Option>-cpu=S2</Option>
           <Option>-use_mda=not_use</Option>
           <Option>-c</Option>
-          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\general"</Option>
@@ -259,12 +267,13 @@
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</Option>
+          <Option>-I "${ProjDirPath}\src\smc_gen\Config_INTC"</Option>
           <Option>-character_set=utf8</Option>
           <Option>-g</Option>
           <Option>-o "${ProjDirPath}\${ConfigName}"</Option>
         </AssembleOptions>
         <LinkOptions>
-          <Option>-device="C:/Users/a5126135/.eclipse/com.renesas.platform_1122780284/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-device="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-list</Option>
           <Option>-show=all</Option>
           <Option>-nooptimize</Option>
@@ -286,7 +295,6 @@
           <Option>-output="${ProjName}.mot"</Option>
           <Option>-form=stype</Option>
           <Option>-byte_count=10</Option>
-          <Option>-nomessage</Option>
           <Option>-nologo</Option>
           <Option>-exit</Option>
           <PreLinker>Auto</PreLinker>
@@ -307,10 +315,13 @@
           <Path>HardwareDebug\sample_control_data_flash.obj</Path>
           <Path>HardwareDebug\LRC_Port.obj</Path>
           <Path>HardwareDebug\LRC_Core.obj</Path>
-          <Path>HardwareDebug\Menu.obj</Path>
+          <Path>HardwareDebug\csvbin.obj</Path>
+          <Path>HardwareDebug\csvbin_port.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
           <Path>HardwareDebug\Config_ADC.obj</Path>
           <Path>HardwareDebug\Config_ADC_user.obj</Path>
+          <Path>HardwareDebug\Config_INTC.obj</Path>
+          <Path>HardwareDebug\Config_INTC_user.obj</Path>
           <Path>HardwareDebug\Config_PORT.obj</Path>
           <Path>HardwareDebug\Config_PORT_user.obj</Path>
           <Path>HardwareDebug\Config_TAU0_0.obj</Path>
@@ -334,8 +345,8 @@
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\csvbin"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\DF_sample\common\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\src\Menu"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\port\FPB_RL78G15"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src"</IncludePathForC>
@@ -356,6 +367,7 @@
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\Config_INTC"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\general"</IncludePathForAsm>
@@ -374,6 +386,7 @@
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_dataflash\src\include"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_rfsp_rl78_common\src\include\rfsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\Config_INTC"</IncludePathForAsm>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>

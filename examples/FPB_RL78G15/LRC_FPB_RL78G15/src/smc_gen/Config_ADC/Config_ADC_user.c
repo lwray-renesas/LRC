@@ -1,12 +1,12 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
 /***********************************************************************************************************************
 * File Name        : Config_ADC_user.c
-* Component Version: 1.9.0
+* Component Version: 1.10.0
 * Device(s)        : R5F12068xSP
 * Description      : This file implements device driver for Config_ADC.
 ***********************************************************************************************************************/
@@ -32,6 +32,7 @@ Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
 extern LRC_Channel lrc_channel;
+extern bool adc_ready;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -65,6 +66,8 @@ static void __near r_Config_ADC_interrupt(void)
 
     /* Enter LRC state machine*/
 	LRC_CB_ADC();
+
+	adc_ready = true;
     /* End user code. Do not edit comment generated here */
 }
 

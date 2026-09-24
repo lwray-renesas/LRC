@@ -24,6 +24,9 @@
 ;;*         : 31.01.2023 1.50     Added code for C++ project.
 ;;*                               Added code for RAM initialization table.
 ;;*         : 04.07.2025 1.92     Changed the disclaimer.
+;;*         : 24.12.2025 2.00     Added process for FreeRTOS.
+;;*                               Changed the macro definition name from BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+;;*                               to BSP_CFG_ASM_RAMSAR_VALUE.
 ;;***********************************************************************************************************************/
 
 $INCLUDE (r_bsp_config.inc)
@@ -41,7 +44,7 @@ $ENDIF
 ;-----------------------------------------------------------------------------
 $IFDEF BSP_RTOS
 $IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
-$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
@@ -86,13 +89,14 @@ _start:
     ;--------------------------------------------------
     ; setting register bank
     ;--------------------------------------------------
-$IFDEF BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
-    MOV !RAMSAR, #BSP_CFG_ASM_RAM_GUARD_START_ADDRESS
+$IFDEF BSP_CFG_ASM_RAMSAR_VALUE
+    MOV !RAMSAR, #BSP_CFG_ASM_RAMSAR_VALUE
 $ENDIF
 $IFDEF BSP_RTOS
 $IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
 ;   SEL RB0
-$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.
+    SEL RB0
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
@@ -313,7 +317,7 @@ $ENDIF    ; __USE_RAM_INIT_TABLE
 
 $IFDEF BSP_RTOS
 $IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
-$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.
@@ -329,7 +333,8 @@ $ENDIF
 $IFDEF BSP_RTOS
 $IF (BSP_CFG_ASM_RTOS_USED == 0)      ; RTOS is not used.
     CALL    !!_main     ; main();
-$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.(This is not available.)
+$ELSEIF (BSP_CFG_ASM_RTOS_USED == 1)  ; FreeRTOS is used.
+    CALL    !!_main     ; main();
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 2)  ; embOS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 3)  ; MicroC_OS is used.(This is not available.)
 $ELSEIF (BSP_CFG_ASM_RTOS_USED == 4)  ; Renesas ITRON is used.

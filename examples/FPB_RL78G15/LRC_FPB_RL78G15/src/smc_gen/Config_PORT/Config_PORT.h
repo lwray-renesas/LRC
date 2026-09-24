@@ -1,12 +1,12 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
 /***********************************************************************************************************************
 * File Name        : Config_PORT.h
-* Component Version: 1.8.1
+* Component Version: 1.9.1
 * Device(s)        : R5F12068xSP
 * Description      : This file implements device driver for Config_PORT.
 ***********************************************************************************************************************/

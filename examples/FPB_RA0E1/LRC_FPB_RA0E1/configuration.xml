@@ -97,7 +97,7 @@
     <node id="board.clock.loco.freq" option="board.clock.loco.freq.32768"/>
     <node id="board.clock.iclk.source" option="board.clock.iclk.source.hoco"/>
     <node id="board.clock.iclk.display" option="board.clock.iclk.display.value"/>
-    <node id="board.clock.tau.ck00.div" option="board.clock.tau.ck00.div.1"/>
+    <node id="board.clock.tau.ck00.div" option="board.clock.tau.ck00.div.32"/>
     <node id="board.clock.tau.ck00.display" option="board.clock.tau.ck00.display.value"/>
     <node id="board.clock.tau.ck01.div" option="board.clock.tau.ck01.div.1"/>
     <node id="board.clock.tau.ck01.display" option="board.clock.tau.ck01.display.value"/>
@@ -188,6 +188,14 @@
       <description>Virtual EEPROM</description>
       <originalPack>Renesas.RA.6.4.0.pack</originalPack>
     </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_dtc" variant="" vendor="Renesas" version="6.4.0">
+      <description>Data Transfer Controller</description>
+      <originalPack>Renesas.RA.6.4.0.pack</originalPack>
+    </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_icu" variant="" vendor="Renesas" version="6.4.0">
+      <description>External Interrupt</description>
+      <originalPack>Renesas.RA.6.4.0.pack</originalPack>
+    </component>
   </raComponentSelection>
   <raElcConfiguration/>
   <raIcuConfiguration/>
@@ -225,8 +233,8 @@
       <property id="module.driver.timer.func" value="module.driver.timer.func.func_interval_timer"/>
       <property id="module.driver.timer.bit_mode_timer" value="module.driver.timer.bit_mode_timer.16bit_timer"/>
       <property id="module.driver.timer.operation_clock" value="module.driver.timer.operation_clock.CK00"/>
-      <property id="module.driver.timer.period" value="200"/>
-      <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_usec"/>
+      <property id="module.driver.timer.period" value="500"/>
+      <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_raw_counts"/>
       <property id="module.driver.timer.higher8bitperiod" value="0x100"/>
       <property id="module.driver.timer.higher8bitunit" value="module.driver.timer.higher8bitunit.unit_period_raw_counts"/>
       <property id="module.driver.timer.input_source" value="module.driver.timer.input_source.no_input_source"/>
@@ -244,11 +252,11 @@
       <property id="module.driver.uarta.data_bits" value="module.driver.uarta.data_bits.data_bits_8"/>
       <property id="module.driver.uarta.parity" value="module.driver.uarta.parity.parity_off"/>
       <property id="module.driver.uarta.stop_bits" value="module.driver.uarta.stop_bits.stop_bits_1"/>
-      <property id="module.driver.uarta.baud" value="9600"/>
+      <property id="module.driver.uarta.baud" value="153600"/>
       <property id="module.driver.uarta.order" value="module.driver.uarta.order.lsb"/>
       <property id="module.driver.uarta.transfer_level" value="module.driver.uarta.transfer_level.positive"/>
       <property id="module.driver.uarta.clk_out" value="module.driver.uarta.clk_out.disabled"/>
-      <property id="module.driver.uart.callback" value="g_uart0_callback"/>
+      <property id="module.driver.uart.callback" value="NULL"/>
       <property id="module.driver.uarta.rxi_ipl" value="board.icu.common.irq.priority2"/>
       <property id="module.driver.uarta.txi_ipl" value="board.icu.common.irq.priority2"/>
       <property id="module.driver.uarta.eri_ipl" value="_disabled"/>
@@ -268,18 +276,44 @@
       <property id="module.driver.flash.p_callback" value="NULL"/>
       <property id="module.driver.flash.ipl" value="board.icu.common.irq.priority3"/>
     </module>
+    <module id="module.driver.external_irq_on_icu.654906422">
+      <property id="module.driver.external_irq.name" value="g_external_irq0"/>
+      <property id="module.driver.external_irq.channel" value="0"/>
+      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_falling"/>
+      <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.false"/>
+      <property id="module.driver.external_irq.filter_source" value="module.driver.external_irq.filter_source.pclk"/>
+      <property id="module.driver.external_irq.clock_source_div" value="module.driver.external_irq.clock_source_div.clock_source_div_by_1"/>
+      <property id="module.driver.external_irq.p_callback" value="Switch_pressed_callback"/>
+      <property id="module.driver.external_irq.ipl" value="board.icu.common.irq.priority2"/>
+    </module>
+    <module id="module.driver.transfer_on_dtc.1347147226">
+      <property id="module.driver.transfer.name" value="g_transfer0"/>
+      <property id="module.driver.transfer.mode" value="module.driver.transfer.mode.mode_normal"/>
+      <property id="module.driver.transfer.size" value="module.driver.transfer.size.size_2_byte"/>
+      <property id="module.driver.transfer.dest_addr_mode" value="module.driver.transfer.dest_addr_mode.addr_mode_fixed"/>
+      <property id="module.driver.transfer.src_addr_mode" value="module.driver.transfer.src_addr_mode.addr_mode_fixed"/>
+      <property id="module.driver.transfer.repeat_area" value="module.driver.transfer.repeat_area.repeat_area_source"/>
+      <property id="module.driver.transfer.interrupt" value="module.driver.transfer.interrupt.interrupt_end"/>
+      <property id="module.driver.transfer.length" value="0"/>
+      <property id="module.driver.transfer.num_blocks" value="0"/>
+      <property id="module.driver.transfer.number_of_descriptors" value="1"/>
+      <property id="module.driver.transfer.activation_source" value="_disabled"/>
+    </module>
     <context id="_hal.0">
       <stack module="module.driver.ioport_on_ioport.0"/>
       <stack module="module.driver.adc_on_adc_d.888855146"/>
       <stack module="module.driver.timer_on_tau.2042992534"/>
-      <stack module="module.driver.uart_on_uarta.387788352"/>
+      <stack module="module.driver.uart_on_uarta.387788352">
+        <stack module="module.driver.transfer_on_dtc.1347147226" requires="module.driver.uart_on_uarta.requires.transfer_tx"/>
+      </stack>
       <stack module="module.middleware.rm_vee_flash.1718585638">
         <stack module="module.driver.flash_on_flash_lp.1932471926" requires="module.middleware.rm_vee_flash.requires.flash"/>
       </stack>
+      <stack module="module.driver.external_irq_on_icu.654906422"/>
     </context>
     <config id="config.driver.uarta">
       <property id="config.driver.uarta.param_checking_enable" value="config.driver.uarta.param_checking_enable.bsp"/>
-      <property id="config.driver.uarta.dtc_support" value="config.driver.uarta.dtc_support.disabled"/>
+      <property id="config.driver.uarta.dtc_support" value="config.driver.uarta.dtc_support.enabled"/>
       <property id="config.driver.uarta.rxi_err_mode" value="config.driver.uarta.rxi_err_mode.generated"/>
     </config>
     <config id="config.middleware.rm_vee_flash">
@@ -298,6 +332,13 @@
     <config id="config.driver.ioport">
       <property id="config.driver.ioport.checking" value="config.driver.ioport.checking.system"/>
       <property id="config.driver.ioport.ccd_support_enable" value="config.driver.ioport.ccd_support_enable.disabled"/>
+    </config>
+    <config id="config.driver.icu">
+      <property id="config.driver.icu.param_checking_enable" value="config.driver.icu.param_checking_enable.bsp"/>
+    </config>
+    <config id="config.driver.dtc">
+      <property id="config.driver.dtc.param_checking_enable" value="config.driver.dtc.param_checking_enable.bsp"/>
+      <property id="config.driver.dtc.vector_table" value=".fsp_dtc_vector_table"/>
     </config>
     <config id="config.driver.flash_lp">
       <property id="config.driver.flash_lp.param_checking_enable" value="config.flash_lp.param_checking_enable.bsp"/>
@@ -318,15 +359,24 @@
     <pincfg active="true" name="R7FA0E1073CFJ.pincfg" selected="true" symbol="g_bsp_pin_cfg">
       <configSetting altId="adc0.an004.p012" configurationId="adc0.an004"/>
       <configSetting altId="adc0.mode.custom.free" configurationId="adc0.mode"/>
+      <configSetting altId="irq.irq0.p200" configurationId="irq.irq0"/>
+      <configSetting altId="irq.mode.custom.free" configurationId="irq.mode"/>
       <configSetting altId="jtag_fslash_swd.mode.swd.free" configurationId="jtag_fslash_swd.mode"/>
       <configSetting altId="jtag_fslash_swd.swclk.p300" configurationId="jtag_fslash_swd.swclk"/>
       <configSetting altId="jtag_fslash_swd.swdio.p108" configurationId="jtag_fslash_swd.swdio"/>
+      <configSetting altId="p008.output.low" configurationId="p008"/>
+      <configSetting altId="p008.gpio_mode.gpio_mode_out.low" configurationId="p008.gpio_mode"/>
+      <configSetting altId="p009.output.low" configurationId="p009"/>
+      <configSetting altId="p009.gpio_mode.gpio_mode_out.low" configurationId="p009.gpio_mode"/>
       <configSetting altId="p012.adc0.an004" configurationId="p012"/>
       <configSetting altId="p012.gpio_mode.gpio_mode_an" configurationId="p012.gpio_mode"/>
       <configSetting altId="p108.jtag_fslash_swd.swdio" configurationId="p108"/>
       <configSetting altId="p108.gpio_mode.gpio_mode_peripheral" configurationId="p108.gpio_mode"/>
       <configSetting altId="p109.output.low" configurationId="p109"/>
       <configSetting altId="p109.gpio_mode.gpio_mode_out.low" configurationId="p109.gpio_mode"/>
+      <configSetting altId="p200.irq.irq0" configurationId="p200"/>
+      <configSetting altId="p200.gpio_irq.gpio_irq_enabled" configurationId="p200.gpio_irq"/>
+      <configSetting altId="p200.gpio_mode.gpio_mode_irq" configurationId="p200.gpio_mode"/>
       <configSetting altId="p207.uarta.rxda" configurationId="p207"/>
       <configSetting altId="p207.gpio_mode.gpio_mode_peripheral" configurationId="p207.gpio_mode"/>
       <configSetting altId="p208.uarta.txda" configurationId="p208"/>

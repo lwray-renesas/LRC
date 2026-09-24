@@ -37,6 +37,8 @@
 *         : 30.08.2025 1.92     Changed the disclaimer.
 *                               Changed the version of smart configurator to check to 1160.
 *                               Added extern declaration for wait processing.
+*         : 15.01.2026 2.00     Added RL78/G21 resource to clock mode comment.
+*                               Changed the version of smart configurator to check to 1180.
 ***********************************************************************************************************************/
 
 /*************************************************
@@ -55,7 +57,7 @@
 #ifndef R_BSP_COMMON_H
 #define R_BSP_COMMON_H
 
-#if BSP_CFG_CONFIGURATOR_VERSION < 1160
+#if BSP_CFG_CONFIGURATOR_VERSION < 1180
 #error "Make sure that the value of BSP_CFG_CONFIGURATOR_VERSION defined in r_config/r_bsp_config.h matches the version of Smart Configurator you are using. If they do not match, change the settings. If they match, you need to upgrade your Smart Configurator. Please upgrade Smart Configurator."
 #endif
 
@@ -69,13 +71,13 @@
  * n = this clock may not be available depending on the number of terminals. 
  * RL78 MCU supported clocks
  *
- * Clock  G23 F24 F23 G15 G22 G16 G24 F25 F22 L23
- * ------ --- --- --- --- --- --- --- --- --- ---
- * HIOCLK  X   X   X   X   X   X   X   X   X   X
- * SYSCLK  Xm  X   X   Xn  Xm  Xn  Xm  X   X   X
+ * Clock  G23 F24 F23 G15 G22 G16 G24 F25 F22 L23 G21
+ * ------ --- --- --- --- --- --- --- --- --- --- ---
+ * HIOCLK  X   X   X   X   X   X   X   X   X   X   X
+ * SYSCLK  Xm  X   X   Xn  Xm  Xn  Xm  X   X   X   X
  * SXCLK   Xm  Xn  Xn      Xm  Xn  Xm  X   Xn  X
  * MIOCLK  X               X       X           X
- * LOCLK   X   X   X       X       X   X   X   X
+ * LOCLK   X   X   X       X       X   X   X   X   X
  * PLLCLK      X   X               X   X   X
 */
 typedef enum

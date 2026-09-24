@@ -85,4 +85,7 @@ void Menu_printf(char const *p_format, ...);
  */
 void Menu_handler(void);
 
+/** @brief Aborts uart transmission*/
+void Menu_cancel_transmit(void);
+
 #endif /* MENU_MENU_H_ */

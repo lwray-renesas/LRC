@@ -86,7 +86,7 @@
         <Item bank="0" id="TAU0_INTTM01H" priority="3"/>
         <Item bank="0" id="TAU0_INTTM00" priority="3"/>
         <Item bank="0" id="TAU0_INTTM01" priority="3"/>
-        <Item bank="0" id="ADC_INTAD" priority="0"/>
+        <Item bank="0" id="ADC_INTAD" priority="3"/>
         <Item bank="0" id="INTC_INTP6" priority="3"/>
         <Item bank="0" id="INTC_INTP7" priority="3"/>
         <Item bank="0" id="TAU0_INTTM03H" priority="3"/>
@@ -103,13 +103,12 @@
     </tool>
     <tool id="Pins" version="1.0.1.0">
         <pinItem allocation="2" comments="" direction="O" id="P20" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="15" comments="" direction="None" id="TxD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="12" comments="" direction="None" id="TOOLRxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="11" comments="" direction="None" id="TxD0" isUsedBySoftware="true" locked="false" operationMode="" status="65280"/>
+        <pinItem allocation="6" comments="" direction="None" id="INTP0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="4" comments="" direction="None" id="TOOL0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="11" comments="" direction="None" id="TOOLTxD" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="19" comments="" direction="None" id="ANI7" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="5" comments="" direction="None" id="_RESET" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="16" comments="" direction="None" id="RxD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="12" comments="" direction="None" id="RxD0" isUsedBySoftware="true" locked="false" operationMode="" status="65280"/>
         <pinnumItem comment="J2-11[TOOLTxD]" id="11" symbolicname=""/>
         <pinnumItem comment="J2-12[TOOLRxD]" id="12" symbolicname=""/>
         <pinnumItem comment="J2-13[PMOD-INT][Arduino-A2]" id="13" symbolicname=""/>
@@ -189,14 +188,14 @@
                     <item id="checked" input="" vlaue="0"/>
                     <item id="unchecked" input="" vlaue="0"/>
                 </option>
-                <option enabled="true" id="intadPriority" selection="Level0">
+                <option enabled="true" id="intadPriority" selection="Level3">
                     <item id="Level0" input="" vlaue="0"/>
                     <item id="Level1" input="" vlaue="0"/>
                     <item id="Level2" input="" vlaue="0"/>
                     <item id="Level3" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The analog to digital (A/D) converter is function for converting analog inputs to digital signals." detailDescription="" display="A/D Converter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.ad" version="1.9.0"/>
+            <component description="The analog to digital (A/D) converter is function for converting analog inputs to digital signals." detailDescription="" display="A/D Converter" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.ad" version="1.10.0"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="The analog to digital (A/D) converter is function for converting analog inputs to digital signals." display="ADC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.ad.g15AD" type="">
                 <context/>
             </allocator>
@@ -257,7 +256,7 @@
                     <item id="32bitCountMode" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.8.1"/>
+            <component description="The interval timer function is timer that generating timer interrupt at regular intervals. It also can measure the interval of the input signals." detailDescription="" display="Interval Timer" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer" version="1.10.0"/>
             <allocator channelLevel0="0" channelLevel1="0" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Timer array unit 0 channel 0" display="TAU0_0" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intervaltimer.tau00" type="TAU">
                 <context>
                     <option enabled="true" id="FilterMode" selection="16bitCountMode">
@@ -370,13 +369,13 @@
                 <isocket id="fCLK_MAX" selection="Clock.tool_clock_fCLK_MAX" value="1.6E7"/>
                 <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
             </allocatable>
-            <component description="The ports is function that config each pin to be used as general input/output pin or input/output function of internal IP." detailDescription="" display="Ports" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port" version="1.8.1"/>
+            <component description="The ports is function that config each pin to be used as general input/output pin or input/output function of internal IP." detailDescription="" display="Ports" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port" version="1.9.1"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Input output configuration of PORT" display="PORT" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.port.rl78g15.PORT" type="">
                 <context/>
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
-        <configuration apiMode="INIT_API" id="3b5b65f1-8a16-4a2a-9780-b8d1f9fbee70" inuse="true" name="Config_UART0">
+        <configuration apiMode="FULL_API" id="3b5b65f1-8a16-4a2a-9780-b8d1f9fbee70" inuse="true" name="Config_UART0">
             <allocatable id="UART0">
                 <allocatable id="transmit">
                     <isocket id="CountingClock" selection="Clock.tool_clock_fCLK" value="1.6E7"/>
@@ -384,7 +383,7 @@
                         <item id="CK0" input="0" vlaue="0"/>
                         <item id="CK1" input="1" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="Prescaler" selection="FCLK3">
+                    <option enabled="true" id="Prescaler" selection="FCLK2">
                         <item id="FCLK0" input="1" vlaue="0"/>
                         <item id="FCLK1" input="2" vlaue="0"/>
                         <item id="FCLK2" input="4" vlaue="0"/>
@@ -430,7 +429,7 @@
                         <item id="reverse" input="" vlaue="0"/>
                     </option>
                     <option enabled="true" id="baudrateSetting" selection="input">
-                        <item id="input" input="9600" vlaue="103"/>
+                        <item id="input" input="153600" vlaue="12"/>
                         <item id="9600" input="9600" vlaue="0"/>
                         <item id="19200" input="19200" vlaue="0"/>
                         <item id="31250" input="31250" vlaue="0"/>
@@ -456,7 +455,7 @@
                         <item id="CK0" input="0" vlaue="0"/>
                         <item id="CK1" input="1" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="Prescaler" selection="FCLK3">
+                    <option enabled="true" id="Prescaler" selection="FCLK2">
                         <item id="FCLK0" input="1" vlaue="0"/>
                         <item id="FCLK1" input="2" vlaue="0"/>
                         <item id="FCLK2" input="4" vlaue="0"/>
@@ -497,7 +496,7 @@
                         <item id="reverse" input="" vlaue="0"/>
                     </option>
                     <option enabled="true" id="baudrateSetting" selection="input">
-                        <item id="input" input="9600" vlaue="103"/>
+                        <item id="input" input="153600" vlaue="12"/>
                         <item id="9600" input="9600" vlaue="0"/>
                         <item id="19200" input="19200" vlaue="0"/>
                         <item id="31250" input="31250" vlaue="0"/>
@@ -539,7 +538,7 @@
                     <item id="both" input="" vlaue="0"/>
                 </option>
             </allocatable>
-            <component description="The universal asynchronous receiver/transmitter(UART) interface supports serial communication." detailDescription="" display="UART Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart" version="1.10.1"/>
+            <component description="The universal asynchronous receiver/transmitter(UART) interface supports serial communication." detailDescription="" display="UART Communication" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart" version="1.12.0"/>
             <allocator channelLevel0="0" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="UART Communication" display="UART0" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.uart.uart0" type="UART">
                 <context>
                     <option enabled="true" id="Mode" selection="both">
@@ -551,8 +550,18 @@
             </allocator>
             <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
+        <configuration inuse="true" name="r_rfsp_rl78_t01_common">
+            <component description="Dependency : r_bsp version(s) 1.60&#10;The common API functions of Renesas Flash Sample Program Type 01 are called from the user program to reprogram the code flash memory or data flash memory in the RL78/G15, RL78/G16." detailDescription="Flash Sample Program[Renesas Flash Sample Program Type01 Flash Common]" display="r_rfsp_rl78_t01_common" id="r_rfsp_rl78_t01_common1.21" version="1.21"/>
+            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
+            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_rfsp_rl78_t01_dataflash">
+            <component description="Dependency : r_bsp version(s) 1.60&#10;Dependency : r_rfsp_rl78_t01_common version(s) 1.21&#10;The API functions of Renesas Flash Sample Program Type 01 are called from the user program to reprogram the data flash memory in the RL78/G15, RL78/G16." detailDescription="Flash Sample Program[Renesas Flash Sample Program Type01 Data Flash]" display="r_rfsp_rl78_t01_dataflash" id="r_rfsp_rl78_t01_dataflash1.21" version="1.21"/>
+            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
+            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
+        </configuration>
         <configuration inuse="true" name="r_bsp">
-            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages. - v1.92" display="r_bsp" id="r_bsp1.92" version="1.92">
+            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages. - v2.00" display="r_bsp" id="r_bsp2.00" version="2.00">
                 <gridItem id="BSP_CFG_STARTUP_DISABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_CONFIGURATOR_SELECT" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_CLOCK_OPERATION_API_FUNCTIONS_DISABLE" selectedIndex="1"/>
@@ -570,25 +579,160 @@
             <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
             <source description="RL78 Software Integration System" display="RL78 Software Integration System" id="com.renesas.smc.tools.swcomponent.rl78.sis.source"/>
         </configuration>
-        <configuration inuse="true" name="r_rfsp_rl78_t01_dataflash">
-            <component description="Dependency : r_bsp version(s) 1.60&#10;Dependency : r_rfsp_rl78_t01_common version(s) 1.21&#10;The API functions of Renesas Flash Sample Program Type 01 are called from the user program to reprogram the data flash memory in the RL78/G15, RL78/G16." detailDescription="Flash Sample Program[Renesas Flash Sample Program Type01 Data Flash]" display="r_rfsp_rl78_t01_dataflash" id="r_rfsp_rl78_t01_dataflash1.21" version="1.21"/>
-            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
-            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_rfsp_rl78_t01_common">
-            <component description="Dependency : r_bsp version(s) 1.60&#10;The common API functions of Renesas Flash Sample Program Type 01 are called from the user program to reprogram the code flash memory or data flash memory in the RL78/G15, RL78/G16." detailDescription="Flash Sample Program[Renesas Flash Sample Program Type01 Flash Common]" display="r_rfsp_rl78_t01_common" id="r_rfsp_rl78_t01_common1.21" version="1.21"/>
-            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
-            <source description="Components supporting Software integration" display="Generic SW" id="com.renesas.smc.tools.swcomponent.generic.source"/>
+        <configuration apiMode="FULL_API" id="82536706-6e8c-467f-a944-6dab665ab67b" inuse="true" name="Config_INTC">
+            <allocatable id="INTC">
+                <allocatable id="INTP0">
+                    <option enabled="true" id="enableINTP" selection="enable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP1">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP2">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP3">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP4">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP5">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP6">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+                <allocatable id="INTP7">
+                    <option enabled="true" id="enableINTP" selection="disable">
+                        <item id="enable" input="" vlaue="0"/>
+                        <item id="disable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="validedge" selection="falling">
+                        <item id="falling" input="" vlaue="0"/>
+                        <item id="rising" input="" vlaue="0"/>
+                        <item id="both" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="intpPriority" selection="Level3">
+                        <item id="Level0" input="" vlaue="0"/>
+                        <item id="Level1" input="" vlaue="0"/>
+                        <item id="Level2" input="" vlaue="0"/>
+                        <item id="Level3" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
+            </allocatable>
+            <component description="The interrupt controller (INTC) is a function that sets request such as external pin interrupts." detailDescription="" display="Interrupt Controller" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" version="1.8.0"/>
+            <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Interrupt Controller" display="INTC" id="com.renesas.smc.tools.swcomponent.codegenerator.rl78.intp" type="">
+                <context/>
+            </allocator>
+            <source description="Code generator components provide peripheral drivers with customized generated source geared towards small code size" display="Code Generator" id="com.renesas.smc.tools.swcomponent.codegenerator.source"/>
         </configuration>
     </tool>
     <tool id="System">
         <section id="ocd">
-            <option enabled="true" id="operation" selection="useUART">
+            <option enabled="true" id="operation" selection="useEmulate">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="useEmulate"/>
                 <item enabled="true" id="useUART"/>
             </option>
-            <option enabled="false" id="Emulator" selection="E2lite">
+            <option enabled="true" id="Emulator" selection="E2lite">
                 <item enabled="true" id="E2"/>
                 <item enabled="true" id="E2lite"/>
             </option>
@@ -600,7 +744,7 @@
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>
-            <option enabled="true" id="monitor" selection="unused">
+            <option enabled="false" id="monitor" selection="unused">
                 <item enabled="true" id="unused"/>
                 <item enabled="true" id="used"/>
             </option>

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -17,6 +17,7 @@ Includes
 #include "r_cg_userdefine.h"
 #include "Config_ADC.h"
 #include "Config_PORT.h"
+#include "Config_INTC.h"
 #include "r_cg_sau_common.h"
 #include "r_cg_tau_common.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -47,4 +48,5 @@ void R_Systeminit(void)
     R_TAU0_Create();
     R_SAU0_Create();
     R_Config_ADC_Create();
+    R_Config_INTC_Create();
 }

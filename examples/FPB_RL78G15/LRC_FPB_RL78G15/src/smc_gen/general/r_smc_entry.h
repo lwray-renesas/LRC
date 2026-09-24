@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -17,6 +17,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_ADC.h"
 #include "Config_PORT.h"
+#include "Config_INTC.h"
 #include "Config_UART0.h"
 #include "Config_TAU0_0.h"
 #include "Pin.h"

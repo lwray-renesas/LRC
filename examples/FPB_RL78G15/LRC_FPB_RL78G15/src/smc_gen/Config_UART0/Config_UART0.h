@@ -1,12 +1,12 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
 /***********************************************************************************************************************
 * File Name        : Config_UART0.h
-* Component Version: 1.10.1
+* Component Version: 1.12.0
 * Device(s)        : R5F12068xSP
 * Description      : This file implements device driver for Config_UART0.
 ***********************************************************************************************************************/
@@ -26,8 +26,8 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _CE00_SAU0_CH0_TRANSMIT_DIVISOR   (0xCE00U)
-#define _CE00_SAU0_CH1_RECEIVE_DIVISOR    (0xCE00U)
+#define _1800_SAU0_CH0_TRANSMIT_DIVISOR   (0x1800U)
+#define _1800_SAU0_CH1_RECEIVE_DIVISOR    (0x1800U)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -37,19 +37,14 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_UART0_Create (void);
+void R_Config_UART0_Start (void);
+void R_Config_UART0_Stop (void);
+MD_STATUS R_Config_UART0_Send (uint8_t * const tx_buf, uint16_t tx_num);
+MD_STATUS R_Config_UART0_Receive (uint8_t * const rx_buf, uint16_t rx_num);
 void R_Config_UART0_Create_UserInit (void);
 /* Start user code for function. Do not edit comment generated here */
 
-/**
- * @brief starts UART interface by enabling uart pins.
- */
-void R_UART0_Start(void);
-
-/**
- * @brief sends a byte out the UART interface.
- * @param b - byte to send.
- */
-void R_UART0_SendByte(uint8_t b);
+void R_Config_UART0_Send_Blocking (uint8_t * const tx_buf, uint16_t tx_num);
 
 /* End user code. Do not edit comment generated here */
 #endif

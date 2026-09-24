@@ -1,12 +1,12 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
 /***********************************************************************************************************************
 * File Name        : Config_ADC.c
-* Component Version: 1.9.0
+* Component Version: 1.10.0
 * Device(s)        : R5F12068xSP
 * Description      : This file implements device driver for Config_ADC.
 ***********************************************************************************************************************/
@@ -45,8 +45,8 @@ void R_Config_ADC_Create(void)
     ADMK = 1U;    /* disable INTAD interrupt */
     ADIF = 0U;    /* clear INTAD interrupt flag */
     /* Set INTAD priority */
-    ADPR1 = 0U;
-    ADPR0 = 0U;
+    ADPR1 = 1U;
+    ADPR0 = 1U;
     /* Set ANI7 pin */
     PMC2 |= 0x08U;
     PM2 |= 0x08U;

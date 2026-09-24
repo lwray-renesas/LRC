@@ -34,6 +34,46 @@ const rm_vee_cfg_t g_vee0_cfg =
 /* Instance structure to use this module. */
 const rm_vee_instance_t g_vee0 =
 { .p_ctrl = &g_vee0_ctrl, .p_cfg = &g_vee0_cfg, .p_api = &g_rm_vee_on_flash };
+dtc_instance_ctrl_t g_transfer0_ctrl;
+
+#if (1 == 1)
+transfer_info_t g_transfer0_info DTC_TRANSFER_INFO_ALIGNMENT =
+{ .transfer_settings_word_b.dest_addr_mode = TRANSFER_ADDR_MODE_FIXED,
+  .transfer_settings_word_b.repeat_area = TRANSFER_REPEAT_AREA_SOURCE,
+  .transfer_settings_word_b.irq = TRANSFER_IRQ_END,
+  .transfer_settings_word_b.chain_mode = TRANSFER_CHAIN_MODE_DISABLED,
+  .transfer_settings_word_b.src_addr_mode = TRANSFER_ADDR_MODE_INCREMENTED,
+  .transfer_settings_word_b.size = TRANSFER_SIZE_1_BYTE,
+  .transfer_settings_word_b.mode = TRANSFER_MODE_NORMAL,
+  .p_dest = (void*) NULL,
+  .p_src = (void const*) NULL,
+  .num_blocks = (uint16_t) 0,
+  .length = (uint16_t) 0, };
+
+#elif (1 > 1)
+/* User is responsible to initialize the array. */
+transfer_info_t g_transfer0_info[1] DTC_TRANSFER_INFO_ALIGNMENT;
+#else
+/* User must call api::reconfigure before enable DTC transfer. */
+#endif
+
+const dtc_extended_cfg_t g_transfer0_cfg_extend =
+{ .activation_source = VECTOR_NUMBER_UARTA0_TXI, };
+
+const transfer_cfg_t g_transfer0_cfg =
+{
+#if (1 == 1)
+  .p_info = &g_transfer0_info,
+#elif (1 > 1)
+    .p_info              = g_transfer0_info,
+#else
+    .p_info = NULL,
+#endif
+  .p_extend = &g_transfer0_cfg_extend, };
+
+/* Instance structure to use this module. */
+const transfer_instance_t g_transfer0 =
+{ .p_ctrl = &g_transfer0_ctrl, .p_cfg = &g_transfer0_cfg, .p_api = &g_transfer_on_dtc };
 uarta_instance_ctrl_t g_uart0_ctrl;
 
 uarta_baud_setting_t g_uart0_baud_setting =
@@ -41,40 +81,40 @@ uarta_baud_setting_t g_uart0_baud_setting =
 #if (BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MAIN_OSC)
 
   /* Baud rate calculated with Actual_Error0.16%. */
-  /* The permissible baud rate error range during reception: -5.19% ~ 5.18% */
+  /* The permissible baud rate error range during reception: -5.11% ~ 5.09% */
   .utanck_clock_b.utasel = UARTA_CLOCK_SOURCE_MOSC,
-  .utanck_clock_b.utanck = UARTA_CLOCK_DIV_8, .brgca = 130, .delay_time = 1
+  .utanck_clock_b.utanck = UARTA_CLOCK_DIV_1, .brgca = 65, .delay_time = 1
 #elif (BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_HOCO)
 
 /* Baud rate calculated with Actual_Error0.16%. */
-/* The permissible baud rate error range during reception: -5.22% ~ 5.21% */
+/* The permissible baud rate error range during reception: -5.17% ~ 5.16% */
   .utanck_clock_b.utasel = UARTA_CLOCK_SOURCE_HOCO
-, .utanck_clock_b.utanck = UARTA_CLOCK_DIV_8
-, .brgca = 208
+, .utanck_clock_b.utanck = UARTA_CLOCK_DIV_1
+, .brgca = 104
 , .delay_time = 1
  #elif (BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_MOCO)
 
 /* Baud rate calculated with Actual_Error0.16%. */ 
-/* The permissible baud rate error range during reception: -5.22% ~ 5.21% */
+/* The permissible baud rate error range during reception: -4.49% ~ 4.42% */
   .utanck_clock_b.utasel = UARTA_CLOCK_SOURCE_MOCO
 , .utanck_clock_b.utanck = UARTA_CLOCK_DIV_1
-, .brgca = 208
+, .brgca = 13
 , .delay_time = 1
  #elif ((BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CFG_FSXP_SOURCE) || (BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_LOCO))
 
-/* Baud rate calculated with Actual_Error14.67%. */
-/* The permissible baud rate error range during reception: -2.50% ~ 2.50% */
+/* Baud rate calculated with Actual_Error100%. */
+/* The permissible baud rate error range during reception: Invalid Range Error */
   .utanck_clock_b.utasel = 0
-, .utanck_clock_b.utanck = UARTA_UTAnCK_LOCO_SETTING
-, .brgca = 2
+, .utanck_clock_b.utanck = 0
+, .brgca = 0
 , .delay_time = 31
  #elif (BSP_CFG_UARTA0_CLOCK_SOURCE == BSP_CLOCKS_SOURCE_CLOCK_SUBCLOCK)
 
-/* Baud rate calculated with Actual_Error14.67%. */
-/* The permissible baud rate error range during reception: -2.50% ~ 2.50% */
+/* Baud rate calculated with Actual_Error100%. */
+/* The permissible baud rate error range during reception: Invalid Range Error */
   .utanck_clock_b.utasel = 0
-, .utanck_clock_b.utanck = UARTA_UTAnCK_SOSC_SETTING
-, .brgca = 2
+, .utanck_clock_b.utanck = 0
+, .brgca = 0
 , .delay_time = 31
  #endif
         };
@@ -88,13 +128,13 @@ const uarta_extended_cfg_t g_uart0_cfg_extend =
 /** UART interface configuration */
 const uart_cfg_t g_uart0_cfg =
 { .channel = 0, .data_bits = UART_DATA_BITS_8, .parity = UART_PARITY_OFF, .stop_bits = UART_STOP_BITS_1, .p_callback =
-          g_uart0_callback,
+          NULL,
   .p_context = NULL, .p_extend = &g_uart0_cfg_extend,
 #define RA_NOT_DEFINED (1)
-#if (RA_NOT_DEFINED == RA_NOT_DEFINED)
-  .p_transfer_tx = NULL,
+#if (RA_NOT_DEFINED == g_transfer0)
+                .p_transfer_tx       = NULL,
 #else
-                .p_transfer_tx       = &RA_NOT_DEFINED,
+  .p_transfer_tx = &g_transfer0,
 #endif
 #if (RA_NOT_DEFINED == RA_NOT_DEFINED)
   .p_transfer_rx = NULL,
@@ -145,8 +185,8 @@ const tau_extended_cfg_t g_timer0_extend =
         };
 const timer_cfg_t g_timer0_cfg =
 { .mode = (timer_mode_t) 0,
-/* Actual Period: 0.0002000000 seconds. */
-/* Minimum Period ~ Maximum Period: 0.0000000625 ~ 0.00204800 seconds. */.period_counts = (uint32_t) 0x1900,
+/* Actual Period: 0.0005000000 seconds. */
+/* Minimum Period ~ Maximum Period: 0.0000010000 ~ 0.06553600 seconds. */.period_counts = (uint32_t) 0x1f4,
   .duty_cycle_counts = 0, .source_div = (timer_source_div_t) BSP_CFG_TAU_CK00, .channel = 1, .p_callback = NULL,
   /** If NULL then do not add & */
 #if defined(NULL)

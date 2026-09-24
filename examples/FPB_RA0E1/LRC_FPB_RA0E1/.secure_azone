@@ -3,6 +3,8 @@
     <rzone name="R7FA0E1073CFJ.rzone"/>
     <partition>
         <peripheral name="PORT0.CM23" group="PORT">
+            <slot name="P008.CM23" secure="false"/>
+            <slot name="P009.CM23" secure="false"/>
             <slot name="P012.CM23" secure="false"/>
         </peripheral>
         <peripheral name="PORT1.CM23" group="PORT">
@@ -10,6 +12,7 @@
             <slot name="P109.CM23" secure="false"/>
         </peripheral>
         <peripheral name="PORT2.CM23" group="PORT">
+            <slot name="P200.CM23" secure="false"/>
             <slot name="P207.CM23" secure="false"/>
             <slot name="P208.CM23" secure="false"/>
         </peripheral>
@@ -18,7 +21,11 @@
         </peripheral>
         <peripheral name="TAU01.CM23" group="TAU" security=""/>
         <peripheral name="UARTA0.CM23" group="UARTA" security=""/>
+        <peripheral name="ICU_EXT_IRQ.CM23">
+            <slot name="ICU_EXT_IRQ0.CM23" secure="false"/>
+        </peripheral>
         <peripheral name="ICU.CM23">
+            <slot name="IRQ2.CM23" secure="false"/>
             <slot name="IRQ11.CM23" secure="false"/>
             <slot name="IRQ31.CM23" secure="false"/>
             <slot name="IRQ40.CM23" secure="false"/>

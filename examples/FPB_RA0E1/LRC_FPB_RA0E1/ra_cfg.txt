@@ -63,7 +63,7 @@ FSP Configuration
     HOCO Div /1
     MOCO Div /1
     ICLK Src: HOCO
-    TAU CK00 Div /1
+    TAU CK00 Div /32
     TAU CK01 Div /1
     TAU CK02 Div /2
     TAU CK03 Div /256
@@ -81,8 +81,8 @@ FSP Configuration
     
   Pin Configurations
     R7FA0E1073CFJ.pincfg -> g_bsp_pin_cfg
-      P008 30 - - - - Disabled - - "ADC0: AN002" - None - - 
-      P009 29 - - - - Disabled - - "ADC0: AN003" - None - - 
+      P008 30 GPIO - - - "Output mode (Initial Low)" - - "ADC0: AN002" - IO - - 
+      P009 29 GPIO - - - "Output mode (Initial Low)" - - "ADC0: AN003" - IO - - 
       P010 32 - - - - Disabled - - "ADC0: AN000; SYSTEM: VREFH0" - None - - 
       P011 31 - - - - Disabled - - "ADC0: AN001; SYSTEM: VREFL0" - None - - 
       P012 28 ADC0_AN004 - - - "Analog mode" - - "ADC0: AN004" - I - - 
@@ -97,7 +97,7 @@ FSP Configuration
       P109 18 GPIO - - - "Output mode (Initial Low)" - - "IICA0: SDAA0; IRQ: IRQ4; SAU_SPI20: SO20; SAU_UART2: TXD2; TAU02: TI02; TAU02: TO02; UARTA: TXDA" - IO - - 
       P110 19 - - - - Disabled - - "IICA0: SCLA0; IRQ: IRQ3; SAU_I2C20: SDA20; SAU_SPI20: SI20; SAU_UART2: RXD2; TAU01: TI01; TAU01: TO01; UARTA: RXDA" - None - - 
       P112 20 - - - - Disabled - - "IRQ: IRQ2; SAU_I2C20: SCL20; SAU_SPI00: SSI00; SAU_SPI20: SCK20; TAU03: TI03; TAU03: TO03" - None - - 
-      P200 15 - - - - Disabled - - "IRQ: IRQ0" - None - - 
+      P200 15 IRQ_IRQ0 - - IRQ0 "IRQ mode" - - "IRQ: IRQ0" - I - - 
       P201 14 - - - - Disabled - - "CGC: PCLBUZ0; IRQ: IRQ5; RTC: RTCOUT; SAU_I2C11: SCL11; SAU_SPI00: SSI00; SAU_SPI11: SCK11; TAU05: TI05; TAU05: TO05" - None - - 
       P206 13 - - - - Disabled - - "SYSTEM: RES" - None - - 
       P207 12 UARTA_RXDA - - None "Peripheral mode" - - "IRQ: IRQ2; TAU00: TO00; UARTA: RXDA" - I - - 
@@ -145,7 +145,7 @@ FSP Configuration
     
   Module "UART (r_uarta)"
     Parameter Checking: Default (BSP)
-    DTC Support: Disable
+    DTC Support: Enable
     Receive Error Interrupt Mode: Enabled
     
   Module "Virtual EEPROM on Flash (rm_vee_flash)"
@@ -160,6 +160,13 @@ FSP Configuration
     Data Flash Programming: Enabled
     Data Flash Background Operation Support: Enabled
     Instant Bank Swap (No Reset Required): Not Supported
+    
+  Module "External IRQ (r_icu)"
+    Parameter Checking: Default (BSP)
+    
+  Module "Transfer (r_dtc)"
+    Parameter Checking: Default (BSP)
+    Linker section to keep DTC vector table: .fsp_dtc_vector_table
     
   HAL
     Instance "g_ioport I/O Port (r_ioport)"
@@ -194,8 +201,8 @@ FSP Configuration
       General: Function: Interval Timer
       General: Bit Timer Mode: 16-bit timer
       General: Operation Clock: CK00
-      General: Period: 200
-      General: Period Unit: Microseconds
+      General: Period: 500
+      General: Period Unit: Raw Counts
       General: Period (Higher 8-bit timer): 0x100
       General: Period Unit (Higher 8-bit timer): Raw Counts
       Input: Input Source: No input signal
@@ -213,15 +220,28 @@ FSP Configuration
       General: Data Bits: 8bits
       General: Parity: None
       General: Stop Bits: 1bit
-      Baud: Baud Rate: 9600
+      Baud: Baud Rate: 153600
       Extra: Transfer Order: LSB first
       Extra: Transfer level: Positive logic
       Extra: Clock output: Not Available
-      Interrupts: Callback: g_uart0_callback
+      Interrupts: Callback: NULL
       Interrupts: Receive Interrupt Priority: Priority 2
       Interrupts: Transmit Interrupt Priority: Priority 2
       Interrupts: Error Interrupt Priority: Disabled
       
+      Instance "g_transfer0 Transfer (r_dtc) UARTA0 TXI (UARTA0 transmission transfer end or buffer empty interrupt)"
+        Name: g_transfer0
+        Mode: Normal
+        Transfer Size: 1 Byte
+        Destination Address Mode: Fixed
+        Source Address Mode: Incremented
+        Repeat Area (Unused in Normal Mode): Source
+        Interrupt Frequency: After all transfers have completed
+        Number of Transfers: 0
+        Number of Blocks (Valid only in Block Mode): 0
+        Number of Transfer Descriptors: 1
+        Activation Source: UARTA0 TXI (UARTA0 transmission transfer end or buffer empty interrupt)
+        
     Instance "Virtual EEPROM on Flash (rm_vee_flash)"
       Name: g_vee0
       Record Max ID: 16
@@ -237,3 +257,13 @@ FSP Configuration
         Callback: rm_vee_flash_callback
         Flash Ready Interrupt Priority: Priority 3
         
+    Instance "g_external_irq0 External IRQ (r_icu)"
+      Name: g_external_irq0
+      Channel: 0
+      Trigger: Falling
+      Digital Filtering: Not Supported
+      Filter Source: Not Supported
+      Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): Not Supported
+      Callback: Switch_pressed_callback
+      Pin Interrupt Priority: Priority 2
+      

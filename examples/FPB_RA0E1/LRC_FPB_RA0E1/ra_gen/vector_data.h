@@ -6,15 +6,18 @@
         #endif
 /* Number of interrupts allocated */
 #ifndef VECTOR_DATA_IRQ_COUNT
-#define VECTOR_DATA_IRQ_COUNT    (4)
+#define VECTOR_DATA_IRQ_COUNT    (5)
 #endif
 /* ISR prototypes */
+void r_icu_isr(void);
 void fcu_frdyi_isr(void);
 void adc_d_scan_end_isr(void);
 void uarta_txi_isr(void);
 void uarta_rxi_isr(void);
 
 /* Vector table allocations */
+#define VECTOR_NUMBER_ICU_IRQ0 ((IRQn_Type) 2) /* ICU IRQ0 (External pin interrupt 0) */
+#define ICU_IRQ0_IRQn          ((IRQn_Type) 2) /* ICU IRQ0 (External pin interrupt 0) */
 #define VECTOR_NUMBER_FCU_FRDYI ((IRQn_Type) 11) /* FCU FRDYI (Flash ready interrupt) */
 #define FCU_FRDYI_IRQn          ((IRQn_Type) 11) /* FCU FRDYI (Flash ready interrupt) */
 #define VECTOR_NUMBER_ADC0_SCAN_END ((IRQn_Type) 31) /* ADC0 SCAN END (End of A/D scanning operation) */

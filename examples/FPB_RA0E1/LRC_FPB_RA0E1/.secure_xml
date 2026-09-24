@@ -25,7 +25,7 @@
     <node id="board.clock.loco.freq" option="board.clock.loco.freq.32768"/>
     <node id="board.clock.iclk.source" option="board.clock.iclk.source.hoco"/>
     <node id="board.clock.iclk.display" option="board.clock.iclk.display.value"/>
-    <node id="board.clock.tau.ck00.div" option="board.clock.tau.ck00.div.1"/>
+    <node id="board.clock.tau.ck00.div" option="board.clock.tau.ck00.div.32"/>
     <node id="board.clock.tau.ck00.display" option="board.clock.tau.ck00.display.value"/>
     <node id="board.clock.tau.ck01.div" option="board.clock.tau.ck01.div.1"/>
     <node id="board.clock.tau.ck01.display" option="board.clock.tau.ck01.display.value"/>
@@ -58,12 +58,19 @@
   <raPinConfiguration>
     <pincfg active="true" name="" symbol="">
       <configSetting altId="adc0.an004.p012" configurationId="adc0.an004" isUsedByDriver="true" peripheral="ADC0"/>
+      <configSetting altId="irq.irq0.p200" configurationId="irq.irq0" isUsedByDriver="true" peripheral="IRQ"/>
       <configSetting altId="jtag_fslash_swd.swclk.p300" configurationId="jtag_fslash_swd.swclk" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.swdio.p108" configurationId="jtag_fslash_swd.swdio" peripheral="JTAG/SWD"/>
+      <configSetting altId="p008.output.low" configurationId="p008"/>
+      <configSetting altId="p008.gpio_mode.gpio_mode_out.low" configurationId="p008.gpio_mode"/>
+      <configSetting altId="p009.output.low" configurationId="p009"/>
+      <configSetting altId="p009.gpio_mode.gpio_mode_out.low" configurationId="p009.gpio_mode"/>
       <configSetting altId="p012.gpio_mode.gpio_mode_an" configurationId="p012.gpio_mode"/>
       <configSetting altId="p108.gpio_mode.gpio_mode_peripheral" configurationId="p108.gpio_mode"/>
       <configSetting altId="p109.output.low" configurationId="p109"/>
       <configSetting altId="p109.gpio_mode.gpio_mode_out.low" configurationId="p109.gpio_mode"/>
+      <configSetting altId="p200.gpio_irq.gpio_irq_enabled" configurationId="p200.gpio_irq"/>
+      <configSetting altId="p200.gpio_mode.gpio_mode_irq" configurationId="p200.gpio_mode"/>
       <configSetting altId="p207.gpio_mode.gpio_mode_peripheral" configurationId="p207.gpio_mode"/>
       <configSetting altId="p208.gpio_mode.gpio_mode_peripheral" configurationId="p208.gpio_mode"/>
       <configSetting altId="p300.gpio_mode.gpio_mode_peripheral" configurationId="p300.gpio_mode"/>

@@ -31,7 +31,7 @@
  * Therefore it should be considered carefully with regards to RAM consumption.
  * @warning MUST BE LARGER THAN 2
  */
-#define LRC_WINDOW_BUFFER_SIZE (501U)
+#define LRC_WINDOW_BUFFER_SIZE (101U)
 
 /** @brief Raw ADC sample type
  * @details This type should accomodate the raw ADC sample type.

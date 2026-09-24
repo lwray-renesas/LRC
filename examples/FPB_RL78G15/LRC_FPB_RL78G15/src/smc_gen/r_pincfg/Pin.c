@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -41,6 +41,9 @@ void R_Pins_Create(void)
     /* Set ANI7 pin */
     PMC2 |= 0x08U;
     PM2 |= 0x08U;
+
+    /* Set INTP0 pin */
+    /* No register setting has been required for pin */
 
     /* Set _RESET pin */
     /* No register setting has been required for pin */

@@ -1,12 +1,12 @@
 /*
-* Copyright (c) 2021 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2021 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
 /***********************************************************************************************************************
 * File Name        : Config_TAU0_0_user.c
-* Component Version: 1.8.1
+* Component Version: 1.10.0
 * Device(s)        : R5F12068xSP
 * Description      : This file implements device driver for Config_TAU0_0.
 ***********************************************************************************************************************/

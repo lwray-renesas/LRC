@@ -7,6 +7,8 @@
 #include "r_flash_lp.h"
 #include "r_flash_api.h"
 #include "rm_vee_flash.h"
+#include "r_dtc.h"
+#include "r_transfer_api.h"
 #include "r_uarta.h"
 #include "r_uart_api.h"
 #include "r_tau.h"
@@ -32,6 +34,12 @@ extern const rm_vee_cfg_t g_vee0_cfg;
 #ifndef VEE_Callback
 void VEE_Callback(rm_vee_callback_args_t *p_args);
 #endif
+/* Transfer on DTC Instance. */
+extern const transfer_instance_t g_transfer0;
+
+/** Access the DTC instance using these structures when calling API functions directly (::p_api is not used). */
+extern dtc_instance_ctrl_t g_transfer0_ctrl;
+extern const transfer_cfg_t g_transfer0_cfg;
 /** UART on UARTA Instance. */
 extern const uart_instance_t g_uart0;
 
@@ -40,8 +48,8 @@ extern uarta_instance_ctrl_t g_uart0_ctrl;
 extern const uart_cfg_t g_uart0_cfg;
 extern const uarta_extended_cfg_t g_uart0_cfg_extend;
 
-#ifndef g_uart0_callback
-void g_uart0_callback(uart_callback_args_t *p_args);
+#ifndef NULL
+void NULL(uart_callback_args_t *p_args);
 #endif
 /** TAU Timer Instance */
 extern const timer_instance_t g_timer0;
