@@ -126,17 +126,6 @@ void main(void)
     	  rms = lrc_channel.ac_data.output;
     	  adc_ready = false;
 
-    	  if(adc < -10000L)
-    	  {
-    		  NOP();
-    		  NOP();
-    		  NOP();
-    		  NOP();
-    		  NOP();
-    		  NOP();
-    		  NOP();
-    	  }
-
     	  /* Add data fields*/
     	  Csvbin_add_field(&csvbuf, (uint8_t*)&adc, sizeof(spl_t));
           Csvbin_add_field(&csvbuf, (uint8_t*)&rms, sizeof(fxp_t));
