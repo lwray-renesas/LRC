@@ -29,6 +29,7 @@
 #include "sample_control_data_flash.h"
 #include <string.h>
 #include "csvbin.h"
+#include "hpf.h"
 
 #define L_MCLK_FREQ_1MHz (1000000uL)
 #define L_MCLK_ROUNDUP_VALUE (999999uL)
@@ -56,6 +57,7 @@ uint8_t uart_buffer[32] = {0,};
 csvbin_t csvbuf;
 bool adc_ready = false;
 bool sw_pressed = false;
+Hpf l_hpf;
 
 /** @brief Initialises dataflash for writing & reading later*/
 static void Dataflash_init(void);
@@ -88,6 +90,9 @@ void main(void)
   /* Setup LRC*/
   LRC_Init(&lrc_cfg);
   LRC_ChannelRegister(&lrc_channel);
+
+  /* Reset HPF*/
+  Hpf_reset(&l_hpf);
 
   /* Enable switch based calib trigger*/
   R_Config_INTC_INTP0_Start();

@@ -45,6 +45,10 @@
           <Path>src\csvbin\csvbin.h</Path>
           <Path>src\csvbin\csvbin_port.c</Path>
         </Category>
+        <Category Name="hpf">
+          <Path>src\hpf\hpf.c</Path>
+          <Path>src\hpf\hpf.h</Path>
+        </Category>
         <Category Name="smc_gen">
           <Category Name="Config_ADC">
             <Path>src\smc_gen\Config_ADC\Config_ADC.c</Path>
@@ -213,8 +217,9 @@
           <Option>-cpu=S2</Option>
           <Option>-use_mda=not_use</Option>
           <Option>-c</Option>
-          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_117125690/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-I "${ProjDirPath}\src\hpf"</Option>
           <Option>-I "${ProjDirPath}\src\csvbin"</Option>
           <Option>-I "${ProjDirPath}\src\DF_sample\common\include"</Option>
           <Option>-I "${ProjDirPath}\..\..\..\src"</Option>
@@ -248,7 +253,7 @@
           <Option>-cpu=S2</Option>
           <Option>-use_mda=not_use</Option>
           <Option>-c</Option>
-          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-dev="C:/Users/a5126135/.eclipse/com.renesas.platform_117125690/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen"</Option>
           <Option>-I "${ProjDirPath}\src\smc_gen\general"</Option>
@@ -273,7 +278,7 @@
           <Option>-o "${ProjDirPath}\${ConfigName}"</Option>
         </AssembleOptions>
         <LinkOptions>
-          <Option>-device="C:/Users/a5126135/.eclipse/com.renesas.platform_1244521783/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
+          <Option>-device="C:/Users/a5126135/.eclipse/com.renesas.platform_117125690/DebugComp/RL78/RL78/Common/DR5F12068.DVF"</Option>
           <Option>-list</Option>
           <Option>-show=all</Option>
           <Option>-nooptimize</Option>
@@ -317,6 +322,7 @@
           <Path>HardwareDebug\LRC_Core.obj</Path>
           <Path>HardwareDebug\csvbin.obj</Path>
           <Path>HardwareDebug\csvbin_port.obj</Path>
+          <Path>HardwareDebug\hpf.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
           <Path>HardwareDebug\Config_ADC.obj</Path>
           <Path>HardwareDebug\Config_ADC_user.obj</Path>
@@ -345,6 +351,7 @@
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\hpf"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\csvbin"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\src\DF_sample\common\include"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\src"</IncludePathForC>

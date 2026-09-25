@@ -63,6 +63,7 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.OinlineSize.802367698" name="Maximum increasing rate of inline expansion size (-Oinline_size)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.OinlineSize" useByScannerDiscovery="false" value="" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.I.1998891435" name="Include file directories (-I)" superClass="com.renesas.cdt.managedbuild.renesas.ccrl.compiler.option.I" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_pincfg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/hpf}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/csvbin}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/DF_sample/common/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../src&quot;"/>

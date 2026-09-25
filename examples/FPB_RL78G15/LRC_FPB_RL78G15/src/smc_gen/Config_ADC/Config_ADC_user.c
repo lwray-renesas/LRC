@@ -18,6 +18,7 @@ Includes
 #include "Config_ADC.h"
 /* Start user code for include. Do not edit comment generated here */
 #include "LRC_Core.h"
+#include "hpf.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -33,6 +34,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 extern LRC_Channel lrc_channel;
 extern bool adc_ready;
+extern Hpf l_hpf;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -61,6 +63,9 @@ static void __near r_Config_ADC_interrupt(void)
 
     /* Single ended 10bit ADC, approximately remove midway bias*/
 	lrc_channel.inputs.i_sample -= 512L;
+
+	/* High pass filter*/
+	lrc_channel.inputs.i_sample = Hpf_run(&l_hpf, lrc_channel.inputs.i_sample);
 
     /* (TODO: implement HPF)*/
 
