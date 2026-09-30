@@ -10,6 +10,9 @@
 
 #include "LRC_Port.h"
 
+#define BITS_SUB2 ((sizeof(acc_t) * 8) - 2)
+#define BITS_DIV2 ((sizeof(acc_t) * 8) / 2)
+
 bool adc_running = false;
 bool tripped = false;
 
@@ -27,13 +30,11 @@ void LRC_Channel_Reset_Hook(LRC_Channel *p_channel)
 
 acc_t LRC_SqrtAcc(acc_t acc)
 {
-  uint32_t rem = 0, root = 0, acc_tmp = (uint32_t)acc;
-  const uint8_t BITS = sizeof(acc) * 8;
-  const uint8_t BITS_DIV2 = BITS / 2;
+  acc_t rem = 0, root = 0, acc_tmp = acc;
   for (uint8_t i = BITS_DIV2; i > 0; i--)
   {
     root <<= 1;
-    rem = (rem << 2) | (acc_tmp >> (BITS - 2));
+    rem = (rem << 2) | (acc_tmp >> BITS_SUB2);
     acc_tmp <<= 2;
     if (root < rem)
     {

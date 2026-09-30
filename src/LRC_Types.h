@@ -49,7 +49,7 @@ typedef int32_t spl_t;
  * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 25 + 15.
  * = ceil(log2(51)) + 25 + 15 = ceil(5.67) + 25 + 15 = 46b
  */
-typedef uint32_t acc_t;
+typedef uint64_t acc_t;
 
 /** @}*/
 
