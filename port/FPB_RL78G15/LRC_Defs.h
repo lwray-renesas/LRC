@@ -114,7 +114,7 @@ typedef uint64_t fxp_dbl_t;
   /** @brief fractional bits in fixed point arithmetic
    * @note this must be considered along side spl_t and acc_t & is recommended to be around half of spl_t bitwidth.
    */
-  #define FXP_FRAC_BITS (8)
+  #define FXP_FRAC_BITS (11)
 
   /** @brief The size of the internal LRC_Channel buffer for windowing the Irms computation.
    * @note This number is used to size an array for every LRC_Channel declared of this number of spl_t.
@@ -141,14 +141,14 @@ typedef uint32_t acc_t;
 /** @brief fixed point type alias
  * @details Because RMS is computed as sum of squared samples, averaged and square rooted - the output will always resolve to
  * within the ADC range. However, we must add together samples bits (8b ADC) and FXP_FRAC_BITS because we will shift the RMS
- * computation to get into FXP range. Here we can use 8b + 8b = 16b.
+ * computation to get into FXP range. Here we can use 8b + 11b = 19b.
  */
-typedef uint16_t fxp_t;
+typedef uint32_t fxp_t;
 
 /** @brief fixed point type alias for double width.
  * @details With fixed point arithmetic (specifically division and multiplication) the value is shifted left by FXP_FRAC_BITS.
  * Meaning the fxp_dbl_t must be able to store the number of bits required of fxp_t + FXP_FRAC_BITS.
- * In our case this is 16b + 8b = 24b.
+ * In our case this is 19b + 11b = 30b.
  */
 typedef uint32_t fxp_dbl_t;
 
