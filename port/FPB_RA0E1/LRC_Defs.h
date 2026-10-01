@@ -17,7 +17,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define LRC_PORT_ADC_BITS (10)
+#define LRC_PORT_ADC_BITS (12)
 
 /** @addtogroup Porting
  *  @{
