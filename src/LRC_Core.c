@@ -58,10 +58,10 @@ static void Channel_hard_reset(LRC_Channel *const p_channel)
 }
 /* END OF FUNCTION*/
 
-/** 
-* @brief Checks for trip conditions & invokes trip handler if detected
-* @param[in] p_channel - pointer to the relevant channel
-*/
+/**
+ * @brief Checks for trip conditions & invokes trip handler if detected
+ * @param[in] p_channel - pointer to the relevant channel
+ */
 static void Channel_trip_check(LRC_Channel *const p_channel)
 {
   /* Check if an AC trip has occurred*/
@@ -81,7 +81,7 @@ static void Channel_trip_check(LRC_Channel *const p_channel)
   else
   {
     /* No trip causes rms_persistence counter to clear*/
-	  p_channel->ac_data.persistence_count = 0;
+    p_channel->ac_data.persistence_count = 0;
     LRC_NoTripAC(p_channel);
   }
 
@@ -103,7 +103,7 @@ static void Channel_trip_check(LRC_Channel *const p_channel)
   else
   {
     /* No trip causes rms_persistence counter to clear*/
-	  p_channel->dc_data.persistence_count = 0;
+    p_channel->dc_data.persistence_count = 0;
     LRC_NoTripDC(p_channel);
   }
 #endif
@@ -212,17 +212,19 @@ void LRC_CB_ADC(void)
     /****************************************************
      * UPDATE ACCUMULATORS & MEASUREMENTS
      ****************************************************/
-	/* RMS*/
-	p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.wr_idx] = p_channel->inputs.iac_sample * p_channel->inputs.iac_sample;
-	p_channel->ac_data.sum -= (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.rd_idx];
-	p_channel->ac_data.sum += (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.wr_idx];
-	p_channel->ac_data.raw_output = (fxp_t)LRC_SqrtAcc(p_channel->ac_data.sum / (LRC_WINDOW_BUFFER_SIZE));
-	p_channel->ac_data.raw_output <<= FXP_FRAC_BITS;
-	p_channel->ac_data.output = LRC_FXP_DIV(p_channel->ac_data.raw_output, p_channel->fp_coefficient);
+    /* RMS*/
+    p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.wr_idx] = p_channel->inputs.iac_sample;
+    p_channel->ac_data.sum -= (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.rd_idx] *
+                              (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.rd_idx];
+    p_channel->ac_data.sum += (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.wr_idx] *
+                              (acc_t)p_channel->ac_data.window.spl_buffer[p_channel->ac_data.window.wr_idx];
+    p_channel->ac_data.raw_output = (fxp_t)LRC_SqrtAcc(p_channel->ac_data.sum / (LRC_WINDOW_BUFFER_SIZE));
+    p_channel->ac_data.raw_output <<= FXP_FRAC_BITS;
+    p_channel->ac_data.output = LRC_FXP_DIV(p_channel->ac_data.raw_output, p_channel->fp_coefficient);
 
 #ifdef LRC_ENABLE_DC
     /* MEAN*/
-	p_channel->dc_data.window.spl_buffer[p_channel->dc_data.window.wr_idx] = p_channel->inputs.idc_sample;
+    p_channel->dc_data.window.spl_buffer[p_channel->dc_data.window.wr_idx] = p_channel->inputs.idc_sample;
     p_channel->dc_data.sum -= (acc_t)p_channel->dc_data.window.spl_buffer[p_channel->dc_data.window.rd_idx];
     p_channel->dc_data.sum += (acc_t)p_channel->dc_data.window.spl_buffer[p_channel->dc_data.window.wr_idx];
     p_channel->dc_data.raw_output = (fxp_t)((acc_t)(p_channel->dc_data.sum / (LRC_WINDOW_BUFFER_SIZE)));

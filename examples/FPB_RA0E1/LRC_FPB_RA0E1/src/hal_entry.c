@@ -214,7 +214,8 @@ void hal_entry(void)
 void adc_callback(adc_callback_args_t *p_args)
 {
     (void)p_args;
-    raw_adc = (int32_t)(R_ADC_D->ADCR[0] - 2048);
+
+    raw_adc = (int32_t)(R_ADC_D->ADCR[0] - (1U << (LRC_PORT_ADC_BITS - 1)));
     hpf_adc = Hpf_run(&l_hpf, raw_adc);
     int_adc = Trap_integrate(&rogowski_integrator, hpf_adc);
 

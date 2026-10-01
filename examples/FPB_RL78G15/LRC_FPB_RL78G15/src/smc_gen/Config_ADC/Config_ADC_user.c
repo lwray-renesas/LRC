@@ -74,11 +74,7 @@ static void __near r_Config_ADC_interrupt(void)
 	raw_adc = lrc_channel.inputs.iac_sample;
 
     /* Single ended 8 bit ADC, approximately remove midway bias*/
-#if 8 == LRC_PORT_ADC_BITS
-	lrc_channel.inputs.iac_sample -= 256; /* adc value is max 256, remove the bias. This math relies on bias being vcc/2*/
-#elif 10 == LRC_PORT_ADC_BITS
-	lrc_channel.inputs.iac_sample -= 512; /* adc value is max 512, remove the bias. This math relies on bias being vcc/2*/
-#endif
+	lrc_channel.inputs.iac_sample -= (1U << (LRC_PORT_ADC_BITS - 1));
 
 	/* High pass filter*/
 	lrc_channel.inputs.iac_sample = Hpf_run(&l_hpf, lrc_channel.inputs.iac_sample);

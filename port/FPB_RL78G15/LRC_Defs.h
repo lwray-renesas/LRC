@@ -39,17 +39,15 @@
 
 /** @brief Raw ADC sample type
  * @details This type should accommodate the raw ADC sample type.
- * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
- * e.g., with 12b samples, squaring gives us 12 * 2 = 24,
- * so the spl_t must be at least 24b
+ * @note The bit width only need support the ADC sample size - so 12b here.
  */
-typedef int32_t spl_t;
+typedef int16_t spl_t;
 
 /** @brief Accumulator type
  * @details This type should accommodate the accumulation of the product of raw ADC sample types.
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
- * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
- * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 20.
+ * e.g., with spl_t needing at least 12bits, and the square of this accommodating 12*2 = 24b & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 12*2.
  * = ceil(log2(51)) + 24 = ceil(5.67) + 24 = 30b
  */
 typedef uint32_t acc_t;
@@ -84,17 +82,15 @@ typedef uint64_t fxp_dbl_t;
 
 /** @brief Raw ADC sample type
  * @details This type should accommodate the raw ADC sample type.
- * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
- * e.g., with 10b samples, squaring gives us 10 * 2 = 20,
- * so the spl_t must be at least 20b
+ * @note The bit width only need support the ADC sample size - so 10b here.
  */
-typedef int32_t spl_t;
+typedef int16_t spl_t;
 
 /** @brief Accumulator type
  * @details This type should accommodate the accumulation of the product of raw ADC sample types.
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
- * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
- * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 20.
+ * e.g., with spl_t needing at least 10bits, and the square of this accommodating 10*2 = 20b & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 10*2.
  * = ceil(log2(51)) + 20 = ceil(5.67) + 20 = 26b
  */
 typedef uint32_t acc_t;
@@ -129,18 +125,16 @@ typedef uint64_t fxp_dbl_t;
 
 /** @brief Raw ADC sample type
  * @details This type should accommodate the raw ADC sample type.
- * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
- * e.g., with 10b samples, squaring gives us 8 * 2 = 16,
- * so the spl_t must be at least 16b
+ * @note The bit width only need support the ADC sample size - so 8b here.
  */
-typedef int16_t spl_t;
+typedef int8_t spl_t;
 
 /** @brief Accumulator type
  * @details This type should accommodate the accumulation of the product of raw ADC sample types.
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
- * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
- * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 16.
- * = ceil(log2(51)) + 16 = ceil(5.67) + 16 = 24b
+ * e.g., with spl_t needing at least 10bits, and the square of this accommodating 8*2 = 16b & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 8*2.
+ * = ceil(log2(51)) + 16 = ceil(5.67) + 16 = 22b
  */
 typedef uint32_t acc_t;
 
