@@ -47,7 +47,7 @@ void LRC_NoTripAC(LRC_Channel *p_channel)
 }
 
 #ifdef LRC_ENABLE_DC
-void LRC_TripDC(LRC_Channel *p_channel);
+void LRC_TripDC(LRC_Channel *p_channel)
 {
   (void)p_channel;
 }

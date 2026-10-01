@@ -47,24 +47,9 @@
  */
 void LRC_Channel_Reset_Hook(LRC_Channel *p_channel);
 
-/**
- * @brief Allows a developer to perform post processing on RMS Computations.
- * @details This is called BEFORE the trip comparisons but after RMS computation update.
- * Intended use here is to perform filtering like LPF.
- * @param[in] p_rms - pointer to the rms to work on.
- */
-void LRC_RMS_Computation_Hook(fxp_t *p_rms);
-
 /******************
  * MATHS
  ******************/
-/**
- * @brief performs a square operation on the sample
- * @param[in] spl - Sample to perform the square on
- *
- * @return square of spl
- */
-spl_t LRC_SqrSpl(spl_t spl);
 
 /**
  * @brief performs a square root operation on the accumulator type.
@@ -78,20 +63,38 @@ acc_t LRC_SqrtAcc(acc_t acc);
  * TRIP BEHAVIOUR
  ******************/
 /**
- * @brief Is called immeditely on detecting a trip on any given channel
+ * @brief Is called immediately on detecting a trip on any given channel for AC conditions.
  * @param[in] p_channel - pointer to the measurement channel
  *
  * @note You can use the channel ID to verify which channel has tripped.
  */
-void LRC_Trip(LRC_Channel *p_channel);
+void LRC_TripAC(LRC_Channel *p_channel);
 
 /**
- * @brief Is called immeditely on detecting a no trip on any given channel
+ * @brief Is called immediately on detecting a no trip on any given channel for AC conditions.
  * @param[in] p_channel - pointer to the measurement channel
  *
  * @note You can use the channel ID to verify which channel has not tripped.
  */
-void LRC_NoTrip(LRC_Channel *p_channel);
+void LRC_NoTripAC(LRC_Channel *p_channel);
+
+#ifdef LRC_ENABLE_DC
+/**
+ * @brief Is called immediately on detecting a trip on any given channel for DC conditions.
+ * @param[in] p_channel - pointer to the measurement channel
+ *
+ * @note You can use the channel ID to verify which channel has tripped.
+ */
+void LRC_TripDC(LRC_Channel *p_channel);
+
+/**
+ * @brief Is called immediately on detecting a no trip on any given channel for DC conditions.
+ * @param[in] p_channel - pointer to the measurement channel
+ *
+ * @note You can use the channel ID to verify which channel has not tripped.
+ */
+void LRC_NoTripDC(LRC_Channel *p_channel);
+#endif
 
 /******************
  * DRIVERS

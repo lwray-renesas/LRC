@@ -16,35 +16,33 @@ void LRC_Channel_Reset_Hook(LRC_Channel *p_channel)
   /* TODO: Populate*/
 }
 
-void LRC_RMS_Computation_Hook(fxp_t *p_rms)
-{
-  (void)p_rms;
-  /* TODO: Populate*/
-}
-
-spl_t LRC_SqrSpl(spl_t spl)
-{
-  (void)spl;
-  /* TODO: Populate*/
-}
-
 acc_t LRC_SqrtAcc(acc_t acc)
 {
   (void)acc;
   /* TODO: Populate*/
 }
 
-void LRC_Trip(LRC_Channel *p_channel)
+void LRC_TripAC(LRC_Channel *p_channel)
 {
   (void)p_channel;
-  /* TODO: Populate*/
 }
 
-void LRC_NoTrip(LRC_Channel *p_channel)
+void LRC_NoTripAC(LRC_Channel *p_channel)
 {
   (void)p_channel;
-  /* TODO: Populate*/
 }
+
+#ifdef LRC_ENABLE_DC
+void LRC_TripDC(LRC_Channel *p_channel)
+{
+  (void)p_channel;
+}
+
+void LRC_NoTripDC(LRC_Channel *p_channel)
+{
+  (void)p_channel;
+}
+#endif
 
 void LRC_ADC_Init(void)
 {
