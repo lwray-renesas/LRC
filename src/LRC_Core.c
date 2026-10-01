@@ -61,31 +61,52 @@ static void Channel_hard_reset(LRC_Channel *const p_channel)
 /** 
 * @brief Checks for trip conditions & invokes trip handler if detected
 * @param[in] p_channel - pointer to the relevant channel
-* @param[in] p_measurement - pointer to the relevant measurement data
-* @param[in] p_trip - pointer to the relevant trip characteristics.
 */
-static void Channel_trip_check(LRC_Channel *const p_channel, LRC_Measurement* const p_measurement, LRC_TripCharacteristics* const p_trip)
+static void Channel_trip_check(LRC_Channel *const p_channel)
 {
-  /* Check if a trip has occured*/
-  if (p_measurement->output >= p_trip->threshold)
+  /* Check if an AC trip has occurred*/
+  if (p_channel->ac_data.output >= p_config->ac_trip.threshold)
   {
     /* Increment persistence count and check if it has persisted enough to cause a trip*/
-    ++p_measurement->persistence_count;
-    if (p_measurement->persistence_count >= p_trip->persistence)
+    ++p_channel->ac_data.persistence_count;
+    if (p_channel->ac_data.persistence_count >= p_config->ac_trip.persistence)
     {
-      LRC_Trip(p_channel);
+      LRC_TripAC(p_channel);
     }
     else
     {
-      LRC_NoTrip(p_channel);
+      LRC_NoTripAC(p_channel);
     }
   }
   else
   {
     /* No trip causes rms_persistence counter to clear*/
-    p_measurement->persistence_count = 0;
-    LRC_NoTrip(p_channel);
+	  p_channel->ac_data.persistence_count = 0;
+    LRC_NoTripAC(p_channel);
   }
+
+#ifdef LRC_ENABLE_DC
+  /* Check if an DC trip has occurred*/
+  if (p_channel->dc_data.output >= p_config->dc_trip.threshold)
+  {
+    /* Increment persistence count and check if it has persisted enough to cause a trip*/
+    ++p_channel->dc_data.persistence_count;
+    if (p_channel->dc_data.persistence_count >= p_config->dc_trip.persistence)
+    {
+      LRC_TripDC(p_channel);
+    }
+    else
+    {
+      LRC_NoTripDC(p_channel);
+    }
+  }
+  else
+  {
+    /* No trip causes rms_persistence counter to clear*/
+	  p_channel->dc_data.persistence_count = 0;
+    LRC_NoTripDC(p_channel);
+  }
+#endif
 }
 
 /* Externally Available Functions*/
@@ -212,11 +233,7 @@ void LRC_CB_ADC(void)
     /***************************************************
      * TRIP CHECK
      ****************************************************/
-    Channel_trip_check(p_channel, &(p_channel->ac_data), &(p_config->ac_trip));
-
-#ifdef LRC_ENABLE_DC
-    Channel_trip_check(p_channel, &(p_channel->dc_data), &(p_config->dc_trip));
-#endif
+    Channel_trip_check(p_channel);
 
     /****************************************************
      * UPDATE WINDOW INDEX'S

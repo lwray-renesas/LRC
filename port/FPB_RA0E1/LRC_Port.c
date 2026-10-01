@@ -36,7 +36,7 @@ acc_t LRC_SqrtAcc(acc_t acc)
   return (acc_t)(root >> 1);
 }
 
-void LRC_Trip(LRC_Channel *p_channel)
+void LRC_TripAC(LRC_Channel *p_channel)
 {
   (void)p_channel;
   /* SET GPIO*/
@@ -47,7 +47,7 @@ void LRC_Trip(LRC_Channel *p_channel)
   }
 }
 
-void LRC_NoTrip(LRC_Channel *p_channel)
+void LRC_NoTripAC(LRC_Channel *p_channel)
 {
   (void)p_channel;
   /* RESET GPIO*/
@@ -57,6 +57,18 @@ void LRC_NoTrip(LRC_Channel *p_channel)
     __BKPT(0);
   }
 }
+
+#ifdef LRC_ENABLE_DC
+void LRC_TripDC(LRC_Channel *p_channel);
+{
+  (void)p_channel;
+}
+
+void LRC_NoTripDC(LRC_Channel *p_channel)
+{
+  (void)p_channel;
+}
+#endif
 
 void LRC_ADC_Init(void)
 {
