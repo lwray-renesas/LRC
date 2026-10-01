@@ -30,6 +30,7 @@
         <Category Name="LRC">
           <Category Name="port">
             <Category Name="FPB_RL78G15">
+              <Path>..\..\..\port\FPB_RL78G15\LRC_Defs.h</Path>
               <Path>..\..\..\port\FPB_RL78G15\LRC_Port.c</Path>
               <Path>..\..\..\port\FPB_RL78G15\LRC_Port.h</Path>
             </Category>

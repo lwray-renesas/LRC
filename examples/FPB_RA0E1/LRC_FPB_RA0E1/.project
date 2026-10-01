@@ -79,6 +79,11 @@
 			<locationURI>PARENT-3-PROJECT_LOC/src/LRC_Types.h</locationURI>
 		</link>
 		<link>
+			<name>src/LRC/port/FPB_RA0E1/LRC_Defs.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/port/FPB_RA0E1/LRC_Defs.h</locationURI>
+		</link>
+		<link>
 			<name>src/LRC/port/FPB_RA0E1/LRC_Port.c</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/port/FPB_RA0E1/LRC_Port.c</locationURI>

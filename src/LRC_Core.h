@@ -23,40 +23,6 @@
  *  @{
  */
 
-/** @brief helper macro to perform FXP multiplication, output = a * b
- * With rounding
- * @param[in] a - fixed point input a
- * @param[in] b - fixed point input b
- * @return a * b
- */
-
-#define LRC_FXP_MUL(a,b) \
-    (fxp_t)((((acc_t)(a) * (acc_t)(b)) + ((acc_t)1 << (FXP_FRAC_BITS-1))) >> FXP_FRAC_BITS)
-
-
-/** @brief helper macro to perform FXP division, output = a / b
- * With rounding
- * @param[in] a - fixed point input a
- * @param[in] b - fixed point input b
- * @return a / b
- */
-
-#define LRC_FXP_DIV(a,b) \
-    (fxp_t)((((acc_t)(a) << FXP_FRAC_BITS) + ((acc_t)(b) >> 1)) / (acc_t)(b))
-
-/** @brief Helper macro to convert floats to fixed point types
- * Mainly used in logging during development or value setting in code for things like trip thresholds.
- * @param[in] in - input value (floating point) for conversion to fixed point.
- * @return floating point equivalent.
- */
-#define LRC_FLOAT_TO_FXP(in) ((fxp_t)((in) * ((float)((fxp_t)1 << FXP_FRAC_BITS))))
-
-/** @brief Helper macro to convert fixed point types to floats
- * Mainly used in logging during development or value setting in code for things like trip thresholds.
- * @param[in] in - input value (fixed point type) for conversion to float.
- * @return fixed point equivalent.
- */
-#define LRC_FXP_TO_FLOAT(in) ((float)((float)(in) / ((float)((fxp_t)1 << FXP_FRAC_BITS))))
 
 /** @brief Initialises the Light-Weight Residual Current Framework according to the config.
  * @param[in] p_config_arg - pointer to the configuration structure.

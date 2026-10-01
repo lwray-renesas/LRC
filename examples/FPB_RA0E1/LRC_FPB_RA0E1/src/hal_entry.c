@@ -16,12 +16,14 @@ static LRC_Config lrc_cfg = {
                              {
                               .persistence = 1,
                               .threshold = LRC_FLOAT_TO_FXP(0.029f),
-                             },
-                             .dc_trip =
+                             }
+#ifdef LRC_ENABLE_DC
+                             ,.dc_trip =
                              {
                               .persistence = 1,
                               .threshold = LRC_FLOAT_TO_FXP(0.029f),
                              },
+#endif
 };
 
 static LRC_Channel lrc_channel;
@@ -217,9 +219,9 @@ void adc_callback(adc_callback_args_t *p_args)
     int_adc = Trap_integrate(&rogowski_integrator, hpf_adc);
 
 #if 1
-    lrc_channel.inputs.i_sample = (spl_t)hpf_adc;
+    lrc_channel.inputs.iac_sample = (spl_t)hpf_adc;
 #else
-    lrc_channel.inputs.i_sample = (spl_t)int_adc;
+    lrc_channel.inputs.idc_sample = (spl_t)int_adc;
 #endif
 
     /* Enter LRC state machine*/
@@ -269,13 +271,17 @@ static void Rms_print(char *p_args)
     (void)p_args;
 
     fxp_t l_rms = lrc_channel.ac_data.output;
+#ifdef LRC_ENABLE_DC
     fxp_t l_dc = lrc_channel.dc_data.output;
+#endif
 
     Menu_printf("\r\nRMS (float): %.3f [A]", LRC_FXP_TO_FLOAT(l_rms));
     Menu_printf("\r\nRMS (fixed point): 0x%08X [A]", l_rms);
 
+#ifdef LRC_ENABLE_DC
     Menu_printf("\r\nDC (float): %.3f [A]", LRC_FXP_TO_FLOAT(l_dc));
     Menu_printf("\r\nDC (fixed point): 0x%08X [A]", l_dc);
+#endif
 }
 
 static void Reset(char *p_args)

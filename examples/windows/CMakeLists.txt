@@ -17,6 +17,7 @@ set (HEADERS
     "../../src/LRC_Core.h"
     "../../src/LRC_Types.h"
     "../../port/windows/LRC_Port.h"
+    "../../port/windows/LRC_Defs.h"
 )
 # setup directories
 set (DIRECTORIES
