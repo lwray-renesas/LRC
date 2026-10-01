@@ -48,7 +48,7 @@ typedef int16_t spl_t;
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
  * e.g., with spl_t needing at least 12bits, and the square of this accommodating 12*2 = 24b & LRC_WINDOW_BUFFER_SIZE = 101.
  * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 12*2.
- * = ceil(log2(51)) + 24 = ceil(5.67) + 24 = 30b
+ * = ceil(log2(101)) + 24 = ceil(6.65) + 24 = 31b
  */
 typedef uint32_t acc_t;
 
@@ -91,7 +91,7 @@ typedef int16_t spl_t;
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
  * e.g., with spl_t needing at least 10bits, and the square of this accommodating 10*2 = 20b & LRC_WINDOW_BUFFER_SIZE = 101.
  * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 10*2.
- * = ceil(log2(51)) + 20 = ceil(5.67) + 20 = 26b
+ * = ceil(log2(101)) + 20 = ceil(6.65) + 20 = 27b
  */
 typedef uint32_t acc_t;
 
@@ -134,7 +134,7 @@ typedef int8_t spl_t;
  * @note the bit width of this type must be able to accommodate the sum of the square of samples.
  * e.g., with spl_t needing at least 10bits, and the square of this accommodating 8*2 = 16b & LRC_WINDOW_BUFFER_SIZE = 101.
  * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 8*2.
- * = ceil(log2(51)) + 16 = ceil(5.67) + 16 = 22b
+ * = ceil(log2(101)) + 16 = ceil(6.65) + 16 = 23b
  */
 typedef uint32_t acc_t;
 
