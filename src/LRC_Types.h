@@ -14,6 +14,38 @@
  *  @{
  */
 
+/** @brief helper macro to perform FXP multiplication, output = a * b
+ * With rounding
+ * @param[in] a - fixed point input a
+ * @param[in] b - fixed point input b
+ * @return a * b
+ */
+#define LRC_FXP_MUL(a,b) \
+    (fxp_t)((((fxp_dbl_t)(a) * (fxp_dbl_t)(b)) + ((fxp_dbl_t)1 << (FXP_FRAC_BITS-1))) >> FXP_FRAC_BITS)
+
+/** @brief helper macro to perform FXP division, output = a / b
+ * With rounding
+ * @param[in] a - fixed point input a
+ * @param[in] b - fixed point input b
+ * @return a / b
+ */
+#define LRC_FXP_DIV(a,b) \
+    (fxp_t)((((fxp_dbl_t)(a) << FXP_FRAC_BITS) + ((fxp_dbl_t)(b) >> 1)) / (fxp_dbl_t)(b))
+
+/** @brief Helper macro to convert floats to fixed point types
+ * Mainly used in logging during development or value setting in code for things like trip thresholds.
+ * @param[in] in - input value (floating point) for conversion to fixed point.
+ * @return floating point equivalent.
+ */
+#define LRC_FLOAT_TO_FXP(in) ((fxp_t)((in) * ((float)((fxp_t)1 << FXP_FRAC_BITS))))
+
+/** @brief Helper macro to convert fixed point types to floats
+ * Mainly used in logging during development or value setting in code for things like trip thresholds.
+ * @param[in] in - input value (fixed point type) for conversion to float.
+ * @return fixed point equivalent.
+ */
+#define LRC_FXP_TO_FLOAT(in) ((float)((float)(in) / ((float)((fxp_t)1 << FXP_FRAC_BITS))))
+
 /** @addtogroup Types
  * @brief LRC Types
  * @details The LRC API relies on a set of unique data structure, enum's and other defined types to operate, here these are

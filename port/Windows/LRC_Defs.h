@@ -17,76 +17,150 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define LRC_PORT_ADC_BITS (10)
+
 /** @addtogroup Porting
  *  @{
  */
 
+#if 12 == LRC_PORT_ADC_BITS
+
+  /** @brief fractional bits in fixed point arithmetic
+   * @note this must be considered along side spl_t and acc_t & is recommended to be around half of spl_t bitwidth.
+   */
+  #define FXP_FRAC_BITS (15)
+
+  /** @brief The size of the internal LRC_Channel buffer for windowing the Irms computation.
+   * @note This number is used to size an array for every LRC_Channel declared of this number of spl_t.
+   * Therefore it should be considered carefully with regards to RAM consumption.
+   * @warning MUST BE LARGER THAN 2
+   */
+  #define LRC_WINDOW_BUFFER_SIZE (101U)
+
 /** @brief Raw ADC sample type
- * @details This type should accomodate the raw ADC sample type.
- * @note The bit width of this type needs to be able to accomodate squaring of the sample (2x sample size in bits)
- * OR [sample size in bits + FXP_FRAC_BITS], whichever is greater
- * e.g., with 10b samples & FXP_FRAC_BITS = 15, squaring gives us 10 * 2 = 20, but shifting gives us 10 + 15 = 25.
- * so the spl_t must be at least 25b
+ * @details This type should accommodate the raw ADC sample type.
+ * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
+ * e.g., with 12b samples, squaring gives us 12 * 2 = 24,
+ * so the spl_t must be at least 24b
  */
 typedef int32_t spl_t;
 
 /** @brief Accumulator type
- * @details This type should accomodate the accumulation of the product of raw ADC sample types.
- * @note the bit width of this type must be able to accomodate the sum of the square of samples + left shifting of FXP_FRAC_BITS.
- * e.g., with spl_t needing at least 25bits & LRC_WINDOW_BUFFER_SIZE = 51 & FXP_FRAC_BITS = 15.
- * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 25 + 15.
- * = ceil(log2(51)) + 25 + 15 = ceil(5.67) + 25 + 15 = 46b
+ * @details This type should accommodate the accumulation of the product of raw ADC sample types.
+ * @note the bit width of this type must be able to accommodate the sum of the square of samples.
+ * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 20.
+ * = ceil(log2(51)) + 24 = ceil(5.67) + 24 = 30b
  */
-typedef uint64_t acc_t;
+typedef uint32_t acc_t;
 
 /** @brief fixed point type alias
- * @details This is the size of the sample type as this is only used to store RMS, which will never exceed maximum spl_t.
+ * @details Because RMS is computed as sum of squared samples, averaged and square rooted - the output will always resolve to
+ * within the ADC range. However, we must add together samples bits (10b ADC) and FXP_FRAC_BITS because we will shift the RMS
+ * computation to get into FXP range. Here we can use 12b + 15b = 27b.
  */
 typedef uint32_t fxp_t;
 
-/** @brief fractional bits in fixed point arithmetic
- * @note this must be considered along side spl_t and acc_t & is recommended to be around half of spl_t bitwidth.
+/** @brief fixed point type alias for double width.
+ * @details With fixed point arithmetic (specifically division and multiplication) the value is shifted left by FXP_FRAC_BITS.
+ * Meaning the fxp_dbl_t must be able to store the number of bits required of fxp_t + FXP_FRAC_BITS.
+ * In our case this is 27b + 15b = 42b.
  */
-#define FXP_FRAC_BITS (15)
+typedef uint64_t fxp_dbl_t;
 
-/** @brief The size of the internal LRC_Channel buffer for windowing the Irms computation.
- * @note This number is used to size an array for every LRC_Channel declared of this number of spl_t.
- * Therefore it should be considered carefully with regards to RAM consumption.
- * @warning MUST BE LARGER THAN 2
- */
-#define LRC_WINDOW_BUFFER_SIZE (101U)
+#elif 10 == LRC_PORT_ADC_BITS
 
-/** @brief helper macro to perform FXP multiplication, output = a * b
- * With rounding
- * @param[in] a - fixed point input a
- * @param[in] b - fixed point input b
- * @return a * b
- */
-#define LRC_FXP_MUL(a,b) \
-    (fxp_t)((((acc_t)(a) * (acc_t)(b)) + ((acc_t)1 << (FXP_FRAC_BITS-1))) >> FXP_FRAC_BITS)
+  /** @brief fractional bits in fixed point arithmetic
+   * @note this must be considered along side spl_t and acc_t & is recommended to be around half of spl_t bitwidth.
+   */
+  #define FXP_FRAC_BITS (15)
 
-/** @brief helper macro to perform FXP division, output = a / b
- * With rounding
- * @param[in] a - fixed point input a
- * @param[in] b - fixed point input b
- * @return a / b
- */
-#define LRC_FXP_DIV(a,b) \
-    (fxp_t)((((acc_t)(a) << FXP_FRAC_BITS) + ((acc_t)(b) >> 1)) / (acc_t)(b))
+  /** @brief The size of the internal LRC_Channel buffer for windowing the Irms computation.
+   * @note This number is used to size an array for every LRC_Channel declared of this number of spl_t.
+   * Therefore it should be considered carefully with regards to RAM consumption.
+   * @warning MUST BE LARGER THAN 2
+   */
+  #define LRC_WINDOW_BUFFER_SIZE (101U)
 
-/** @brief Helper macro to convert floats to fixed point types
- * Mainly used in logging during development or value setting in code for things like trip thresholds.
- * @param[in] in - input value (floating point) for conversion to fixed point.
- * @return floating point equivalent.
+/** @brief Raw ADC sample type
+ * @details This type should accommodate the raw ADC sample type.
+ * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
+ * e.g., with 10b samples, squaring gives us 10 * 2 = 20,
+ * so the spl_t must be at least 20b
  */
-#define LRC_FLOAT_TO_FXP(in) ((fxp_t)((in) * ((float)((fxp_t)1 << FXP_FRAC_BITS))))
+typedef int32_t spl_t;
 
-/** @brief Helper macro to convert fixed point types to floats
- * Mainly used in logging during development or value setting in code for things like trip thresholds.
- * @param[in] in - input value (fixed point type) for conversion to float.
- * @return fixed point equivalent.
+/** @brief Accumulator type
+ * @details This type should accommodate the accumulation of the product of raw ADC sample types.
+ * @note the bit width of this type must be able to accommodate the sum of the square of samples.
+ * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 20.
+ * = ceil(log2(51)) + 20 = ceil(5.67) + 20 = 26b
  */
-#define LRC_FXP_TO_FLOAT(in) ((float)((float)(in) / ((float)((fxp_t)1 << FXP_FRAC_BITS))))
+typedef uint32_t acc_t;
+
+/** @brief fixed point type alias
+ * @details Because RMS is computed as sum of squared samples, averaged and square rooted - the output will always resolve to
+ * within the ADC range. However, we must add together samples bits (10b ADC) and FXP_FRAC_BITS because we will shift the RMS
+ * computation to get into FXP range. Here we can use 10b + 15b = 25b.
+ */
+typedef uint32_t fxp_t;
+
+/** @brief fixed point type alias for double width.
+ * @details With fixed point arithmetic (specifically division and multiplication) the value is shifted left by FXP_FRAC_BITS.
+ * Meaning the fxp_dbl_t must be able to store the number of bits required of fxp_t + FXP_FRAC_BITS.
+ * In our case this is 25b + 15b = 40b.
+ */
+typedef uint64_t fxp_dbl_t;
+
+#elif 8 == LRC_PORT_ADC_BITS
+
+  /** @brief fractional bits in fixed point arithmetic
+   * @note this must be considered along side spl_t and acc_t & is recommended to be around half of spl_t bitwidth.
+   */
+  #define FXP_FRAC_BITS (8)
+
+  /** @brief The size of the internal LRC_Channel buffer for windowing the Irms computation.
+   * @note This number is used to size an array for every LRC_Channel declared of this number of spl_t.
+   * Therefore it should be considered carefully with regards to RAM consumption.
+   * @warning MUST BE LARGER THAN 2
+   */
+  #define LRC_WINDOW_BUFFER_SIZE (101U)
+
+/** @brief Raw ADC sample type
+ * @details This type should accommodate the raw ADC sample type.
+ * @note The bit width of this type needs to be able to accommodate squaring of the sample (2x sample size in bits)
+ * e.g., with 10b samples, squaring gives us 8 * 2 = 16,
+ * so the spl_t must be at least 16b
+ */
+typedef int16_t spl_t;
+
+/** @brief Accumulator type
+ * @details This type should accommodate the accumulation of the product of raw ADC sample types.
+ * @note the bit width of this type must be able to accommodate the sum of the square of samples.
+ * e.g., with spl_t needing at least 20bits & LRC_WINDOW_BUFFER_SIZE = 101.
+ * It must be at least ceil(log2(LRC_WINDOW_BUFFER_SIZE)) + 16.
+ * = ceil(log2(51)) + 16 = ceil(5.67) + 16 = 24b
+ */
+typedef uint32_t acc_t;
+
+/** @brief fixed point type alias
+ * @details Because RMS is computed as sum of squared samples, averaged and square rooted - the output will always resolve to
+ * within the ADC range. However, we must add together samples bits (8b ADC) and FXP_FRAC_BITS because we will shift the RMS
+ * computation to get into FXP range. Here we can use 8b + 8b = 16b.
+ */
+typedef uint16_t fxp_t;
+
+/** @brief fixed point type alias for double width.
+ * @details With fixed point arithmetic (specifically division and multiplication) the value is shifted left by FXP_FRAC_BITS.
+ * Meaning the fxp_dbl_t must be able to store the number of bits required of fxp_t + FXP_FRAC_BITS.
+ * In our case this is 16b + 8b = 24b.
+ */
+typedef uint32_t fxp_dbl_t;
+
+#else
+  #error "Please select valid ADC sample bit count"
+#endif /* LRC_PORT_ADC_BITS*/
 
 /** @}*/
 
