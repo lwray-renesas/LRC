@@ -43,7 +43,7 @@ Global variables and functions
 extern LRC_Channel lrc_channel;
 extern bool adc_ready;
 extern Hpf l_hpf;
-extern uint16_t raw_adc;
+static volatile int16_t raw_adc = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -69,15 +69,12 @@ static void __near r_Config_ADC_interrupt(void)
     /* Start user code for r_Config_ADC_interrupt. Do not edit comment generated here */
 	P2 |= 1U;
 
-	/* Grab the sample, 10b ADC reading in 16bit register is left justified on RL78/G15, drop unused 6 bits and first two result bits */
-	lrc_channel.inputs.iac_sample = (spl_t)((uint16_t)(ADCR >> ADC_BIT_SHIFT));
-	raw_adc = lrc_channel.inputs.iac_sample;
-
-    /* Single ended 8 bit ADC, approximately remove midway bias*/
-	lrc_channel.inputs.iac_sample -= (1U << (LRC_PORT_ADC_BITS - 1));
-
+	/* Grab the sample, result register is left justified on RL78/G15 */
+	raw_adc = (uint16_t)(ADCR >> ADC_BIT_SHIFT);
+	/* Single ended ADC, approximately remove midway bias before HPF*/
+	raw_adc -= (1U << (LRC_PORT_ADC_BITS - 1));
 	/* High pass filter*/
-	lrc_channel.inputs.iac_sample = Hpf_run(&l_hpf, lrc_channel.inputs.iac_sample);
+	lrc_channel.inputs.iac_sample = (spl_t)Hpf_run(&l_hpf, raw_adc);
 
     /* Enter LRC state machine*/
 	LRC_CB_ADC();

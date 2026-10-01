@@ -74,9 +74,9 @@ extern bool transmit_meta;
 extern void Menu_uart_callback(uart_callback_args_t *p_args);
 extern void Csvbin_uart_callback(uart_callback_args_t *p_args);
 uart_callback_args_t uart_cb_args;
-int32_t raw_adc;
-int32_t hpf_adc;
-int32_t int_adc;
+int16_t raw_adc;
+int16_t hpf_adc;
+int16_t int_adc;
 Hpf l_hpf;
 
 void hal_entry(void)
@@ -215,9 +215,9 @@ void adc_callback(adc_callback_args_t *p_args)
 {
     (void)p_args;
 
-    raw_adc = (int32_t)(R_ADC_D->ADCR[0] - (1U << (LRC_PORT_ADC_BITS - 1)));
-    hpf_adc = Hpf_run(&l_hpf, raw_adc);
-    int_adc = Trap_integrate(&rogowski_integrator, hpf_adc);
+    raw_adc = (int16_t)(R_ADC_D->ADCR[0] - (1U << (LRC_PORT_ADC_BITS - 1)));
+    hpf_adc = (int16_t)Hpf_run(&l_hpf, (int32_t)raw_adc);
+    int_adc = (int16_t)Trap_integrate(&rogowski_integrator, hpf_adc);
 
 #if 1
     lrc_channel.inputs.iac_sample = (spl_t)hpf_adc;
