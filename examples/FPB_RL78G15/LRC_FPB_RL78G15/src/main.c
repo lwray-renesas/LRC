@@ -136,8 +136,8 @@ void main(void)
       /* Transmit new data if ADC reading completed*/
       if(l_adc_ready)
       {
-  		static volatile int16_t l_raw_adc = 0;
-  		static volatile uint16_t l_hpf_adc = 0;
+  		static volatile uint16_t l_raw_adc = 0;
+  		static volatile int16_t l_hpf_adc = 0;
 		static volatile fxp_t l_rms = 0;
 
 		LRC_CRITICAL_SECTION_PREPARE();
