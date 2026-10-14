@@ -87,7 +87,7 @@ void main(void)
   /* Initialise the csvbin streamer*/
   Csvbin_init(&csvbuf, uart_buffer, CSVBIN_BUFFER_SIZE);
   /* Set the metadata*/
-  Csvbin_set_meta(&csvbuf, "#NHPF_ADC,RMS\n", "#i16,q17.15\n", "#Elittle\n");
+  Csvbin_set_meta(&csvbuf, "#NHPF_ADC,RMS\n", "#Ti16,q17.15\n", "#Elittle\n");
   R_Config_UART0_Start();
   R_Config_UART0_Receive(g_rx_buf, 1U);
 
