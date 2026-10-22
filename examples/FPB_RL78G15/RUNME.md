@@ -15,8 +15,8 @@ This project contains firmware written in C for evaluating LRC in an example app
 - Debugger/Programmer: `COM Port`
 
 ### 💻 Software
-- IDE: `e2 studio 2025-10+`
-- Serial terminal: `TeraTerm or PuTTY (9600 baud, 8-N-1)`
+- IDE: `e2 studio 2026-07+`
+- Serial terminal: `TeraTerm or PuTTY (2000000 baud, 8-N-1)`
 
 ---
 
@@ -38,9 +38,8 @@ This project contains firmware written in C for evaluating LRC in an example app
 
 ### 2. Import project to e2 studio
 1. Open e2 studio.
-2. `File → Import → General → Existing Projects into Workspace`
-3. Select `<LRC_root>/examples/FPB_RA0E1/LRC_FPB_RA0E1`.
-4. Do not copy into workspace.
+2. `File → Import → General → Projects from folder or archive`
+3. Select `<LRC_root>/examples/FPB_RL78G15/LRC_FPB_RL78G15`.
 5. Click Finish.
 
 ![Import Project](imgs/import.gif "Import Project")
@@ -48,7 +47,8 @@ This project contains firmware written in C for evaluating LRC in an example app
 ### 3. Build the project
 
 1. Right click the project
-2. Build Project
+2. Clean Project
+3. Build Project
 
 ![Build Project](imgs/build.gif "Build Project")
 
@@ -65,7 +65,7 @@ Now to enable the evaluation make two connections;
 ## 🧪 Testing
 
 To run the sample application and evaluate, the following are used:
-1. Teraterm to connect to the JLink CDC UART Port with settings 9600, 8-N-1
+1. Teraterm to connect to the JLink CDC UART Port with settings 2000000, 8-N-1
 2. Signal generator to input a signal to the ADC to simulate RCD sense element
 
 Note, the ADC uses the internal reference voltage by default so the input signal range is 0-1.48V and the application assumes a bias of 0.74V so subtracts this (2048) from every measurement to get an AC signal.
@@ -74,7 +74,7 @@ So launch the debug session and run the applcation as shown below.
 
 ![Debug](imgs/debug.gif "Debug")
 
-Now launch TeraTerm and connect to the serial port "JLink CDC UART Port" & make the settings 9600, 8-N-1.
+Now launch TeraTerm and connect to the serial port "JLink CDC UART Port" & make the settings 2000000, 8-N-1.
 
 ![TeraTermConnect](imgs/teraterm_conn.png "TeraTerm Connect")
 
